@@ -168,6 +168,58 @@ export const LESSON_BLOCKS: Record<string, LessonBlock[]> = {
     },
   ],
 
+  'mom-normal-stress': [
+    {
+      type: 'lead',
+      text: 'Stress is the internal intensity of force—halving the cross-section doubles the stress for the same load. This single idea filters most FE mechanics-of-materials items.',
+    },
+    {
+      type: 'heading',
+      text: 'Average normal stress',
+    },
+    {
+      type: 'paragraph',
+      text: 'Cut the bar at any cross-section perpendicular to the axis. The internal resultant force divided by the cut area gives the average normal stress. Tension is positive by convention.',
+    },
+    {
+      type: 'math',
+      latex: String.raw`\sigma = \frac{F}{A}`,
+      caption: 'σ in Pa (N/m²) or MPa (N/mm²); keep units consistent.',
+    },
+    {
+      type: 'bullet',
+      items: [
+        'Doubling A halves σ for the same F — design by area.',
+        'Doubling F doubles σ for the same A — loading matters linearly.',
+        'σ compared to material yield strength tells you if the bar is safe.',
+      ],
+    },
+    {
+      type: 'callout',
+      variant: 'insight',
+      title: 'Stress vs. force',
+      body: 'A thin wire under 100 N can break while a thick bar under 10 kN is fine. Stress, not force alone, predicts failure.',
+    },
+    {
+      type: 'callout',
+      variant: 'lab',
+      title: 'Dial force and area',
+      body: 'The lab shows a bar under axial tension. Resize the cross-section and watch σ change—compare to mild-steel yield (≈250 MPa) in real time.',
+      simId: 'normal-stress',
+    },
+    {
+      type: 'checkpoint',
+      title: 'Unit trap',
+      body: 'If F is in kN and A in mm², then σ = F/A directly in MPa (since 1 kN/mm² = 1 GPa and 1 N/mm² = 1 MPa). Many FE errors come from mixing N with kN or m² with mm².',
+    },
+    {
+      type: 'callout',
+      variant: 'exam',
+      title: 'Handbook pairing',
+      body: "Review the Mechanics of Materials section in your NCEES PDF for shear stress, strain, and Mohr's circle extensions once you've internalized the axial base.",
+    },
+  ],
+
   'fluids-continuity': [
     {
       type: 'lead',

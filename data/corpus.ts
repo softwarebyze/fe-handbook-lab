@@ -46,6 +46,13 @@ export const SIMULATORS: SimulatorMeta[] = [
     description: 'Volumetric flow from area and average speed for incompressible 1-D thinking.',
     sectionIds: ['fluid-mechanics', 'chemical-engineering'],
   },
+  {
+    id: 'normal-stress',
+    title: 'Axial stress (σ = F/A)',
+    description:
+      'Set axial force and cross-section area; read normal stress and compare to mild-steel yield.',
+    sectionIds: ['mechanics-materials'],
+  },
 ];
 
 export const FORMULA_CARDS: FormulaCard[] = [
@@ -468,6 +475,22 @@ export const QUIZ_ITEMS: QuizItem[] = [
     explanation: 'Axial load gives normal stress on a cross-section.',
   },
   {
+    id: 'q-stress-3',
+    topicId: 'mom-normal-stress',
+    question: 'A 50 kN tensile force on a 500 mm² bar gives a normal stress of:',
+    choices: ['10 MPa', '25 MPa', '100 MPa', '250 MPa'],
+    correctIndex: 2,
+    explanation: 'σ = F/A = 50×10³ N / 500×10⁻⁶ m² = 100×10⁶ Pa = 100 MPa.',
+  },
+  {
+    id: 'q-stress-4',
+    topicId: 'mom-normal-stress',
+    question: 'Mild steel yields at ≈250 MPa. A bar at σ = 200 MPa is:',
+    choices: ['Yielded', 'Below yield (elastic)', 'At ultimate strength', 'In creep'],
+    correctIndex: 1,
+    explanation: '200 MPa < 250 MPa, so the bar remains in the elastic region.',
+  },
+  {
     id: 'q-heat-1',
     topicId: 'heat-fourier-wall',
     question: 'In 1-D conduction, larger thermal conductivity k (same temperature gradient) implies:',
@@ -693,8 +716,8 @@ Stress is not force: halving the area doubles stress for the same load. Watch SI
 
 Advanced items add shear, bending, and stress transformations—grow into those from this axial base.`,
     formulaCardIds: ['fc-stress-normal'],
-    quizItemIds: ['q-stress-1', 'q-stress-2'],
-    simulatorIds: [],
+    quizItemIds: ['q-stress-1', 'q-stress-2', 'q-stress-3', 'q-stress-4'],
+    simulatorIds: ['normal-stress'],
   },
   {
     id: 'heat-fourier-wall',
