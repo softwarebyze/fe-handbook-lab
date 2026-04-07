@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { LayoutChangeEvent, StyleSheet, Text, View } from 'react-native';
-import Svg, { Line, Rect, Text as SvgText } from 'react-native-svg';
+import Svg, { G, Line, Rect, Text as SvgText } from 'react-native-svg';
 
 import { ParamSlider } from '@/components/ParamSlider';
 import { useAppColors } from '@/hooks/useAppColors';
@@ -111,7 +111,7 @@ export function TvmFactorsSim() {
             const fvH = (pt2.fv / maxFV) * innerH;
             const pvH = (pt2.pv / maxFV) * innerH;
             return (
-              <View key={pt2.year}>
+              <G key={pt2.year}>
                 <Rect
                   x={x}
                   y={chartH - pb - fvH}
@@ -130,7 +130,7 @@ export function TvmFactorsSim() {
                   opacity={0.7}
                   rx={1}
                 />
-              </View>
+              </G>
             );
           })}
           <SvgText x={pl + 4} y={chartH - 6} fontSize="9" fill={colors.textMuted}>yr 0</SvgText>
