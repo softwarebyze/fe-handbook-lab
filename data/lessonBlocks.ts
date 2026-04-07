@@ -223,6 +223,58 @@ export const LESSON_BLOCKS: Record<string, LessonBlock[]> = {
     },
   ],
 
+  'econ-tvm': [
+    {
+      type: 'lead',
+      text: 'Six factors, one idea: a dollar today is not the same as a dollar later. The FE economics section tests whether you can pick the right conversion and punch it correctly.',
+    },
+    {
+      type: 'heading',
+      text: 'The six discrete-compounding factors',
+    },
+    {
+      type: 'math',
+      latex: String.raw`(F/P,\,i,\,n) = (1+i)^n \qquad (P/F,\,i,\,n) = \frac{1}{(1+i)^n}`,
+      caption: 'Single-payment: compound amount and present worth.',
+    },
+    {
+      type: 'math',
+      latex: String.raw`(F/A,\,i,\,n) = \frac{(1+i)^n - 1}{i} \qquad (A/F,\,i,\,n) = \frac{i}{(1+i)^n - 1}`,
+      caption: 'Uniform series: compound amount and sinking fund.',
+    },
+    {
+      type: 'math',
+      latex: String.raw`(P/A,\,i,\,n) = \frac{(1+i)^n - 1}{i(1+i)^n} \qquad (A/P,\,i,\,n) = \frac{i(1+i)^n}{(1+i)^n - 1}`,
+      caption: 'Uniform series: present worth and capital recovery.',
+    },
+    {
+      type: 'bullet',
+      items: [
+        '(X/Y, i, n) reads "find X, given Y, at rate i for n periods."',
+        'F/P and P/F are reciprocals. Same for A/F & F/A, and A/P & P/A.',
+        'At i = 0 every factor simplifies: (F/P)=1, (P/A)=n, etc.',
+      ],
+    },
+    {
+      type: 'callout',
+      variant: 'lab',
+      title: 'Build your own factor table',
+      body: 'Set i and n and all six values update instantly. Compare with the handbook\'s printed tables to check your intuition.',
+      simId: 'tvm-factors',
+    },
+    {
+      type: 'callout',
+      variant: 'exam',
+      title: 'Handbook pairing',
+      body: 'The printed interest tables in your NCEES PDF cover common rates (1%–25%). Use the lab for rates or periods outside those tables.',
+    },
+    {
+      type: 'checkpoint',
+      title: 'Quick self-check',
+      body: 'At 8% for 10 years, (F/P) ≈ 2.159. Can you get there on the playground? Now halve the rate—does the factor roughly halve? (No—it is nonlinear.)',
+    },
+  ],
+
   'fluids-bernoulli': [
     {
       type: 'lead',

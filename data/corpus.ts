@@ -46,6 +46,13 @@ export const SIMULATORS: SimulatorMeta[] = [
     description: 'Volumetric flow from area and average speed for incompressible 1-D thinking.',
     sectionIds: ['fluid-mechanics', 'chemical-engineering'],
   },
+  {
+    id: 'tvm-factors',
+    title: 'TVM factor table',
+    description:
+      'All six time-value-of-money factors (F/P, P/F, A/F, F/A, P/A, A/P) live — sweep interest rate and periods.',
+    sectionIds: ['economics'],
+  },
 ];
 
 export const FORMULA_CARDS: FormulaCard[] = [
@@ -238,6 +245,44 @@ export const FORMULA_CARDS: FormulaCard[] = [
       { symbol: 'n', name: 'count', units: '—' },
     ],
     handbookSection: 'Engineering Probability and Statistics',
+  },
+  {
+    id: 'fc-fp',
+    topicId: 'econ-tvm',
+    title: 'Single-payment compound amount',
+    expression: '(F/P, i, n) = (1 + i)ⁿ',
+    latex: String.raw`(F/P,\,i,\,n) = (1+i)^n`,
+    variables: [
+      { symbol: 'F', name: 'future value', units: '$' },
+      { symbol: 'P', name: 'present value', units: '$' },
+      { symbol: 'i', name: 'interest rate per period', units: '—' },
+      { symbol: 'n', name: 'number of periods', units: '—' },
+    ],
+    handbookSection: 'Engineering Economics',
+  },
+  {
+    id: 'fc-pa',
+    topicId: 'econ-tvm',
+    title: 'Uniform-series present worth',
+    expression: '(P/A, i, n) = [(1+i)ⁿ − 1] / [i(1+i)ⁿ]',
+    latex: String.raw`(P/A,\,i,\,n) = \frac{(1+i)^n - 1}{i(1+i)^n}`,
+    variables: [
+      { symbol: 'A', name: 'uniform periodic payment', units: '$' },
+      { symbol: 'P', name: 'present value', units: '$' },
+    ],
+    handbookSection: 'Engineering Economics',
+  },
+  {
+    id: 'fc-ap',
+    topicId: 'econ-tvm',
+    title: 'Capital recovery factor',
+    expression: '(A/P, i, n) = [i(1+i)ⁿ] / [(1+i)ⁿ − 1]',
+    latex: String.raw`(A/P,\,i,\,n) = \frac{i(1+i)^n}{(1+i)^n - 1}`,
+    variables: [
+      { symbol: 'A', name: 'uniform periodic payment', units: '$' },
+      { symbol: 'P', name: 'present value', units: '$' },
+    ],
+    handbookSection: 'Engineering Economics',
   },
 ];
 
@@ -498,6 +543,56 @@ export const QUIZ_ITEMS: QuizItem[] = [
     choices: ['Rings above 1', 'Approaches 1 without oscillation', 'Diverges', 'Sticks at 0'],
     correctIndex: 1,
     explanation: 'Overdamped step response creeps toward 1 with no overshoot.',
+  },
+  {
+    id: 'q-econ-1',
+    topicId: 'econ-tvm',
+    question: '$1,000 invested at 8% annual interest for 10 years is worth approximately:',
+    choices: ['$1,800', '$2,159', '$1,080', '$10,000'],
+    correctIndex: 1,
+    explanation: 'F = P(1+i)ⁿ = 1000(1.08)¹⁰ ≈ $2,159.',
+  },
+  {
+    id: 'q-econ-2',
+    topicId: 'econ-tvm',
+    question: 'The capital-recovery factor (A/P, i, n) converts:',
+    choices: [
+      'A future lump sum into equal annual payments',
+      'A present lump sum into equal annual payments',
+      'Equal annual payments into a future sum',
+      'Equal annual payments into a present sum',
+    ],
+    correctIndex: 1,
+    explanation: 'A/P turns a present amount P into n equal periodic payments A.',
+  },
+  {
+    id: 'q-econ-3',
+    topicId: 'econ-tvm',
+    question: 'If the interest rate is 0%, the present-worth factor (P/F, i, n) equals:',
+    choices: ['0', 'n', '1', '∞'],
+    correctIndex: 2,
+    explanation: 'At i = 0, (P/F) = 1/(1+0)ⁿ = 1 — no discounting occurs.',
+  },
+  {
+    id: 'q-econ-4',
+    topicId: 'econ-tvm',
+    question: 'Doubling the number of periods n at a fixed positive i causes (F/P) to:',
+    choices: ['Double', 'More than double', 'Less than double', 'Stay the same'],
+    correctIndex: 1,
+    explanation: '(F/P) = (1+i)ⁿ is exponential; doubling n squares the factor.',
+  },
+  {
+    id: 'q-econ-5',
+    topicId: 'econ-tvm',
+    question: 'The uniform-series present-worth factor (P/A, 6%, 10) is the sum of:',
+    choices: [
+      '(P/F, 6%, k) for k = 1 to 10',
+      '(F/P, 6%, k) for k = 1 to 10',
+      '(A/F, 6%, k) for k = 1 to 10',
+      'All factors divided by 10',
+    ],
+    correctIndex: 0,
+    explanation: 'P/A is the sum of individual present-worth factors for each period.',
   },
 ];
 
@@ -827,16 +922,24 @@ Use your NCEES PDF for the exact conversion blocks.`,
     simulatorIds: [],
   },
   {
-    id: 'econ-preview',
+    id: 'econ-tvm',
     sectionId: 'economics',
-    title: 'Engineering economics placeholder',
+    title: 'Time value of money factors',
     handbookSection: 'Engineering Economics',
     pageHint: 230,
-    learningObjectives: ['Present worth and annual worth patterns'],
-    lesson: `Placeholder: author original factor problems; use handbook interest factors in your PDF.`,
-    formulaCardIds: [],
-    quizItemIds: [],
-    simulatorIds: [],
+    learningObjectives: [
+      'Compute F/P, P/F, A/F, F/A, P/A, A/P for given i and n',
+      'Distinguish which factor converts between lump sums and annuities',
+      'Recognize exponential growth of compound interest',
+    ],
+    lesson: `The FE economics section boils down to six discrete-compounding factors. Each converts between present (P), future (F), and uniform-series (A) amounts at interest rate i over n periods.
+
+Master the notation: (X/Y, i, n) means "given Y, find X." The slash reads as "X given Y."
+
+Use the playground to build a factor table for any i and n—compare with your handbook's printed tables so you can sanity-check under exam pressure.`,
+    formulaCardIds: ['fc-fp', 'fc-pa', 'fc-ap'],
+    quizItemIds: ['q-econ-1', 'q-econ-2', 'q-econ-3', 'q-econ-4', 'q-econ-5'],
+    simulatorIds: ['tvm-factors'],
   },
   {
     id: 'chemeng-preview',
