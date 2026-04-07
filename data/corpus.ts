@@ -46,6 +46,13 @@ export const SIMULATORS: SimulatorMeta[] = [
     description: 'Volumetric flow from area and average speed for incompressible 1-D thinking.',
     sectionIds: ['fluid-mechanics', 'chemical-engineering'],
   },
+  {
+    id: 'normal-stress',
+    title: 'Axial stress (σ = F/A)',
+    description:
+      'Pull on a round bar: set force and diameter, watch normal stress rise as cross-section shrinks. Turns red above 250 MPa (mild-steel yield).',
+    sectionIds: ['mechanics-materials'],
+  },
 ];
 
 export const FORMULA_CARDS: FormulaCard[] = [
@@ -468,6 +475,22 @@ export const QUIZ_ITEMS: QuizItem[] = [
     explanation: 'Axial load gives normal stress on a cross-section.',
   },
   {
+    id: 'q-stress-3',
+    topicId: 'mom-normal-stress',
+    question: 'A circular bar of diameter d has cross-section area A = π d²/4. Halving d multiplies stress by:',
+    choices: ['2', '4', '1/2', '1/4'],
+    correctIndex: 1,
+    explanation: 'A ∝ d², so halving d quarters the area and quadruples σ = F/A.',
+  },
+  {
+    id: 'q-stress-4',
+    topicId: 'mom-normal-stress',
+    question: 'Mild structural steel typically yields near:',
+    choices: ['25 MPa', '250 MPa', '2500 MPa', '25 000 MPa'],
+    correctIndex: 1,
+    explanation: 'Typical A36/S275 yield strength is around 250 MPa (36 ksi).',
+  },
+  {
     id: 'q-heat-1',
     topicId: 'heat-fourier-wall',
     question: 'In 1-D conduction, larger thermal conductivity k (same temperature gradient) implies:',
@@ -691,10 +714,12 @@ Rigid-body statics adds ΣM = 0; use handbook frames and notation when problems 
 
 Stress is not force: halving the area doubles stress for the same load. Watch SI vs USCS units; stress often ends up in Pa or ksi after conversions.
 
+Use the playground to pull on a round bar and see how shrinking the diameter rapidly increases stress—area scales with d² so the effect is nonlinear. The display turns red above 250 MPa to flag typical mild-steel yield.
+
 Advanced items add shear, bending, and stress transformations—grow into those from this axial base.`,
     formulaCardIds: ['fc-stress-normal'],
-    quizItemIds: ['q-stress-1', 'q-stress-2'],
-    simulatorIds: [],
+    quizItemIds: ['q-stress-1', 'q-stress-2', 'q-stress-3', 'q-stress-4'],
+    simulatorIds: ['normal-stress'],
   },
   {
     id: 'heat-fourier-wall',
