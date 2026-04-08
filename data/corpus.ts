@@ -46,6 +46,13 @@ export const SIMULATORS: SimulatorMeta[] = [
     description: 'Volumetric flow from area and average speed for incompressible 1-D thinking.',
     sectionIds: ['fluid-mechanics', 'chemical-engineering'],
   },
+  {
+    id: 'stress-strain',
+    title: 'Stress–strain explorer',
+    description:
+      'Set axial force, area, modulus, and yield strength—see σ = F/A, ε = σ/E, and a live stress–strain curve with elastic and plastic zones.',
+    sectionIds: ['mechanics-materials'],
+  },
 ];
 
 export const FORMULA_CARDS: FormulaCard[] = [
@@ -226,6 +233,30 @@ export const FORMULA_CARDS: FormulaCard[] = [
       { symbol: 'q″', name: 'heat flux', units: 'W/m²' },
     ],
     handbookSection: 'Heat Transfer',
+  },
+  {
+    id: 'fc-hooke',
+    topicId: 'mom-normal-stress',
+    title: 'Hooke\u2019s law (1-D)',
+    expression: 'σ = E ε',
+    latex: String.raw`\sigma = E\,\varepsilon`,
+    variables: [
+      { symbol: 'E', name: 'Young\u2019s modulus', units: 'Pa' },
+      { symbol: 'ε', name: 'axial strain', units: '—' },
+    ],
+    handbookSection: 'Mechanics of Materials',
+  },
+  {
+    id: 'fc-shear-stress',
+    topicId: 'mom-normal-stress',
+    title: 'Average shear stress',
+    expression: 'τ = V / A',
+    latex: String.raw`\tau = \frac{V}{A}`,
+    variables: [
+      { symbol: 'V', name: 'shear force', units: 'N' },
+      { symbol: 'A', name: 'area', units: 'm²' },
+    ],
+    handbookSection: 'Mechanics of Materials',
   },
   {
     id: 'fc-mean-var',
@@ -468,6 +499,30 @@ export const QUIZ_ITEMS: QuizItem[] = [
     explanation: 'Axial load gives normal stress on a cross-section.',
   },
   {
+    id: 'q-stress-3',
+    topicId: 'mom-normal-stress',
+    question: 'Hooke\u2019s law \u03C3 = E\u03B5 applies only in the:',
+    choices: ['Plastic region', 'Elastic region', 'Necking zone', 'Fracture point'],
+    correctIndex: 1,
+    explanation: 'Linear stress–strain proportionality holds in the elastic range.',
+  },
+  {
+    id: 'q-stress-4',
+    topicId: 'mom-normal-stress',
+    question: 'A steel bar (E = 200 GPa) under 100 MPa tensile stress has strain ε of:',
+    choices: ['5 × 10⁻⁴', '2 × 10⁻³', '5 × 10⁻³', '1 × 10⁻²'],
+    correctIndex: 0,
+    explanation: 'ε = σ/E = 100 × 10⁶ / (200 × 10⁹) = 5 × 10⁻⁴.',
+  },
+  {
+    id: 'q-stress-5',
+    topicId: 'mom-normal-stress',
+    question: 'Average shear stress on a cross-section carrying shear force V and area A is:',
+    choices: ['V × A', 'V / A', 'A / V', 'V² / A'],
+    correctIndex: 1,
+    explanation: 'τ = V/A by definition of average shear stress.',
+  },
+  {
     id: 'q-heat-1',
     topicId: 'heat-fourier-wall',
     question: 'In 1-D conduction, larger thermal conductivity k (same temperature gradient) implies:',
@@ -683,18 +738,25 @@ Rigid-body statics adds ΣM = 0; use handbook frames and notation when problems 
   {
     id: 'mom-normal-stress',
     sectionId: 'mechanics-materials',
-    title: 'Axial stress introduction',
+    title: 'Axial stress & Hooke\u2019s law',
     handbookSection: 'Mechanics of Materials',
     pageHint: 130,
-    learningObjectives: ['Compute average normal stress σ = F/A', 'Track units for stress'],
+    learningObjectives: [
+      'Compute average normal stress σ = F/A',
+      'Apply Hooke\u2019s law \u03B5 = \u03C3/E in the elastic range',
+      'Identify yield and the onset of plastic deformation',
+      'Track units for stress and strain',
+    ],
     lesson: `Average normal stress on a cross-section carrying axial force is σ = F/A. Tension vs compression is carried by the sign convention you choose—stay consistent with the handbook figure you are emulating.
+
+Hooke's law ties stress to strain in the elastic region: σ = Eε, where E is Young's modulus. Beyond the yield stress σ_y the material enters plastic deformation and Hooke's law no longer holds.
 
 Stress is not force: halving the area doubles stress for the same load. Watch SI vs USCS units; stress often ends up in Pa or ksi after conversions.
 
 Advanced items add shear, bending, and stress transformations—grow into those from this axial base.`,
-    formulaCardIds: ['fc-stress-normal'],
-    quizItemIds: ['q-stress-1', 'q-stress-2'],
-    simulatorIds: [],
+    formulaCardIds: ['fc-stress-normal', 'fc-hooke', 'fc-shear-stress'],
+    quizItemIds: ['q-stress-1', 'q-stress-2', 'q-stress-3', 'q-stress-4', 'q-stress-5'],
+    simulatorIds: ['stress-strain'],
   },
   {
     id: 'heat-fourier-wall',

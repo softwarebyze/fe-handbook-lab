@@ -187,6 +187,80 @@ export const LESSON_BLOCKS: Record<string, LessonBlock[]> = {
     },
   ],
 
+  'mom-normal-stress': [
+    {
+      type: 'lead',
+      text: "Mechanics of Materials starts with the simplest stress state: a prismatic bar in uniaxial tension or compression. Master \u03C3 = F/A and Hooke's law here\u2014everything else builds on it.",
+    },
+    {
+      type: 'heading',
+      text: 'Average normal stress',
+    },
+    {
+      type: 'math',
+      latex: String.raw`\sigma = \frac{F}{A}`,
+      caption: 'Force F divided by the cross-sectional area A perpendicular to the load.',
+    },
+    {
+      type: 'paragraph',
+      text: 'Stress carries units of pressure (Pa = N/m² or psi). Doubling the area for the same load cuts stress in half—this is the core sizing idea for every structural member.',
+    },
+    {
+      type: 'heading',
+      text: "Hooke's law (elastic range)",
+    },
+    {
+      type: 'math',
+      latex: String.raw`\sigma = E\,\varepsilon, \qquad \varepsilon = \frac{\delta}{L}`,
+      caption: "E is Young's modulus; \u03B5 is engineering strain (change in length / original length).",
+    },
+    {
+      type: 'bullet',
+      items: [
+        'Steel: E ≈ 200 GPa — stiff, small strains under normal loads.',
+        'Aluminum: E ≈ 70 GPa — about one-third as stiff as steel.',
+        'The linear σ–ε relation breaks at the yield stress σ_y.',
+      ],
+    },
+    {
+      type: 'callout',
+      variant: 'insight',
+      title: 'Why yield matters',
+      body: 'Below σ_y deformation is recoverable (elastic). Beyond it, permanent set begins. FE items often ask whether a given load keeps the material elastic.',
+    },
+    {
+      type: 'callout',
+      variant: 'lab',
+      title: 'Explore the stress–strain curve',
+      body: 'Set force, area, modulus, and yield strength. Watch the operating point move along the curve—red means you have crossed into the plastic zone.',
+      simId: 'stress-strain',
+    },
+    {
+      type: 'heading',
+      text: 'Average shear stress',
+    },
+    {
+      type: 'math',
+      latex: String.raw`\tau = \frac{V}{A}`,
+      caption: 'Shear force V over the area A parallel to the shear plane.',
+    },
+    {
+      type: 'paragraph',
+      text: 'Shear acts tangent to a surface rather than normal. Bolts, pins, and adhesive joints are sized against shear. The formula mirrors σ = F/A but the force and area orientations differ.',
+    },
+    {
+      type: 'checkpoint',
+      title: 'Quick self-check',
+      body: 'A 10 kN load on a 200 mm² bar: σ = 10 000 / (200 × 10⁻⁶) = 50 MPa. With E = 200 GPa: ε = 50/200 000 = 2.5 × 10⁻⁴. Say it before you reach for a calculator.',
+    },
+    {
+      type: 'callout',
+      variant: 'exam',
+      title: 'Handbook pairing',
+      body: "Cross-reference the Mechanics of Materials section (p 130\u2013142) for beam bending, torsion, and Mohr's circle once this axial base feels solid.",
+    },
+  ],
+
   'dynamics-work-energy': [
     {
       type: 'lead',
