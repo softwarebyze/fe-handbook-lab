@@ -187,6 +187,54 @@ export const LESSON_BLOCKS: Record<string, LessonBlock[]> = {
     },
   ],
 
+  'mom-normal-stress': [
+    {
+      type: 'lead',
+      text: 'Average normal stress is the starting point for all of Mechanics of Materials: one force, one area, one ratio.',
+    },
+    {
+      type: 'math',
+      latex: String.raw`\sigma = \frac{F}{A}`,
+      caption: 'Tensile (+) or compressive (−) depending on your sign convention.',
+    },
+    {
+      type: 'paragraph',
+      text: 'Stress is force per unit area—not the same as force. Halving the area doubles the stress for the same load, which is why structural members are sized by stress limits, not just load capacity.',
+    },
+    {
+      type: 'bullet',
+      items: [
+        'SI: σ in Pa (N/m²); practical engineering uses MPa or GPa.',
+        'USCS: σ in psi or ksi. Watch gc when the problem mixes lbf and lbm.',
+        'The formula assumes uniform stress distribution across the cross-section—valid for prismatic bars under centric axial load.',
+      ],
+    },
+    {
+      type: 'callout',
+      variant: 'insight',
+      title: 'Why area matters more than force',
+      body: 'A thin wire and a thick rod can carry the same force, but the wire is under far more stress. Materials fail at a critical stress, not a critical force—that is the whole point of σ = F/A.',
+    },
+    {
+      type: 'callout',
+      variant: 'lab',
+      title: 'Stretch a virtual bar',
+      body: 'Dial force and area to see stress change. The bar diagram scales with A, and a mild-steel yield reference warns you when the material would start to deform permanently.',
+      simId: 'normal-stress',
+    },
+    {
+      type: 'checkpoint',
+      title: 'Quick self-check',
+      body: 'If you double the force and double the area, stress stays the same. If you halve only the area, stress doubles. Say it while sliding—units and proportionality stick faster that way.',
+    },
+    {
+      type: 'callout',
+      variant: 'exam',
+      title: 'Handbook pairing',
+      body: 'The Mechanics of Materials section (p 130+) lists stress\u2013strain diagrams, shear stress, and Mohr\u2019s circle. Start here with \u03C3 = F/A, then extend to bending and torsion.',
+    },
+  ],
+
   'dynamics-work-energy': [
     {
       type: 'lead',
