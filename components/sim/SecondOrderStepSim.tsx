@@ -65,7 +65,7 @@ export function SecondOrderStepSim() {
           height={220}
           yLabel="Output y(t) for unit step"
           yMin={0}
-          yMax={1.15}
+          yMax={zeta >= 1 ? 1.05 : undefined}
         />
       </View>
     </View>
