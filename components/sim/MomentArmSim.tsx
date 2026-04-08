@@ -28,11 +28,13 @@ export function MomentArmSim() {
 
   const h = 210;
   const pivotX = 72;
-  const pivotY = h - 52;
+  const pivotY = h - 80;
   const maxLen = Math.max(32, boxW - pivotX - 28);
   const len = Math.min(d * 58, maxLen);
-  const fx = pivotX + len;
-  const fy = pivotY;
+  const armEndX = pivotX + len;
+  const armEndY = pivotY;
+  const arrowLen = Math.min(F * 0.2, 60);
+  const arrowTipY = armEndY + arrowLen;
 
   const onLayout = (e: LayoutChangeEvent) => {
     const w = e.nativeEvent.layout.width;
@@ -40,13 +42,14 @@ export function MomentArmSim() {
   };
 
   const arrowColor = colors.tint;
+  const arrowHeadSize = Math.min(10, arrowLen * 0.35);
 
   return (
     <View style={styles.container}>
       <View style={[styles.callout, { backgroundColor: colors.surface, borderColor: colors.border }]}>
         <Text style={[styles.hint, { color: colors.text }]}>
-          Perpendicular force and lever arm: M = F·d. Haptics tick when the moment crosses coarse
-          steps (device only).
+          Perpendicular force at the end of a lever arm: M = F·d⊥. The force arrow
+          points downward (⊥ to arm). Haptics tick at coarse moment steps (device only).
         </Text>
       </View>
 
@@ -74,20 +77,29 @@ export function MomentArmSim() {
           <Line
             x1={pivotX}
             y1={pivotY}
-            x2={fx}
-            y2={fy}
-            stroke={arrowColor}
+            x2={armEndX}
+            y2={armEndY}
+            stroke={colors.borderStrong}
             strokeWidth={5}
             strokeLinecap="round"
           />
+          <Line
+            x1={armEndX}
+            y1={armEndY}
+            x2={armEndX}
+            y2={arrowTipY}
+            stroke={arrowColor}
+            strokeWidth={4}
+            strokeLinecap="round"
+          />
           <Polygon
-            points={`${fx},${fy} ${fx - 14},${fy - 8} ${fx - 14},${fy + 8}`}
+            points={`${armEndX},${arrowTipY} ${armEndX - arrowHeadSize},${arrowTipY - arrowHeadSize} ${armEndX + arrowHeadSize},${arrowTipY - arrowHeadSize}`}
             fill={arrowColor}
           />
-          <SvgText x={pivotX + len / 2 - 8} y={pivotY + 26} fill={colors.text} fontSize="13" fontWeight="600">
+          <SvgText x={pivotX + len / 2 - 8} y={pivotY - 14} fill={colors.text} fontSize="13" fontWeight="600">
             d
           </SvgText>
-          <SvgText x={Math.min(fx + 8, boxW - 28)} y={fy - 14} fill={colors.text} fontSize="13" fontWeight="600">
+          <SvgText x={armEndX + 10} y={armEndY + arrowLen / 2 + 4} fill={colors.text} fontSize="13" fontWeight="600">
             F
           </SvgText>
         </Svg>
