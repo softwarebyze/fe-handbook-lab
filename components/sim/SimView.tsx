@@ -6,6 +6,7 @@ import { MomentArmSim } from '@/components/sim/MomentArmSim';
 import { OhmLawSim } from '@/components/sim/OhmLawSim';
 import { SecondOrderStepSim } from '@/components/sim/SecondOrderStepSim';
 import { SpringDamperSim } from '@/components/sim/SpringDamperSim';
+import { StressStrainSim } from '@/components/sim/StressStrainSim';
 import { useAppColors } from '@/hooks/useAppColors';
 
 type Props = { simId: string };
@@ -26,6 +27,8 @@ export function SimView({ simId }: Props) {
       return <OhmLawSim />;
     case 'continuity-flow':
       return <ContinuityFlowSim />;
+    case 'stress-strain':
+      return <StressStrainSim />;
     default:
       return (
         <View style={styles.fallback}>

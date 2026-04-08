@@ -46,6 +46,13 @@ export const SIMULATORS: SimulatorMeta[] = [
     description: 'Volumetric flow from area and average speed for incompressible 1-D thinking.',
     sectionIds: ['fluid-mechanics', 'chemical-engineering'],
   },
+  {
+    id: 'stress-strain',
+    title: 'Stress-strain explorer',
+    description:
+      "Axial stress \u03C3 = F/A and Hooke\u2019s law \u03B5 = \u03C3/E\u2014adjust force, area, and modulus to see elastic vs yield behavior.",
+    sectionIds: ['mechanics-materials', 'mechanical-engineering'],
+  },
 ];
 
 export const FORMULA_CARDS: FormulaCard[] = [
@@ -694,7 +701,7 @@ Stress is not force: halving the area doubles stress for the same load. Watch SI
 Advanced items add shear, bending, and stress transformations—grow into those from this axial base.`,
     formulaCardIds: ['fc-stress-normal'],
     quizItemIds: ['q-stress-1', 'q-stress-2'],
-    simulatorIds: [],
+    simulatorIds: ['stress-strain'],
   },
   {
     id: 'heat-fourier-wall',

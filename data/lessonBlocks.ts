@@ -223,6 +223,44 @@ export const LESSON_BLOCKS: Record<string, LessonBlock[]> = {
     },
   ],
 
+  'mom-normal-stress': [
+    {
+      type: 'lead',
+      text: "Stress is not force\u2014it is force per unit area. Halve the cross-section and the same load doubles the stress. That scaling drives most Mechanics of Materials reasoning on the FE exam.",
+    },
+    {
+      type: 'math',
+      latex: String.raw`\sigma = \frac{F}{A}, \qquad \varepsilon = \frac{\sigma}{E} = \frac{F}{AE}`,
+      caption: "Hooke\u2019s law in the elastic region: stress and strain are proportional.",
+    },
+    {
+      type: 'bullet',
+      items: [
+        "\u03C3 > 0 is tensile; \u03C3 < 0 is compressive\u2014sign follows your axis convention.",
+        "Strain \u03B5 is dimensionless: meters per meter (or in/in).",
+        "E (Young\u2019s modulus) is the slope of the linear elastic curve\u2014steel \u2248 200 GPa, aluminum \u2248 70 GPa.",
+      ],
+    },
+    {
+      type: 'callout',
+      variant: 'insight',
+      title: 'Why yield matters',
+      body: "Beyond the proportional limit, Hooke\u2019s law no longer applies and permanent deformation begins. On the FE exam, most problems assume you are in the elastic range unless stated otherwise.",
+    },
+    {
+      type: 'callout',
+      variant: 'lab',
+      title: 'Watch the curve bend',
+      body: "Slide force, area, and modulus\u2014the operating point moves along the stress-strain curve. Cross the yield line and the bar turns red.",
+      simId: 'stress-strain',
+    },
+    {
+      type: 'checkpoint',
+      title: 'Quick self-check',
+      body: "If you double area A with fixed F, stress halves. If you double E with fixed \u03C3, strain halves. Say both out loud before touching the sliders.",
+    },
+  ],
+
   'fluids-bernoulli': [
     {
       type: 'lead',

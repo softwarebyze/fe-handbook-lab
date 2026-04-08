@@ -16,6 +16,7 @@ const ICONS: Record<string, FaName> = {
   'moment-arm': 'wrench',
   'ohms-law': 'flash',
   'continuity-flow': 'arrows-h',
+  'stress-strain': 'bar-chart',
 };
 
 export default function PlaygroundsScreen() {
