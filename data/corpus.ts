@@ -46,6 +46,13 @@ export const SIMULATORS: SimulatorMeta[] = [
     description: 'Volumetric flow from area and average speed for incompressible 1-D thinking.',
     sectionIds: ['fluid-mechanics', 'chemical-engineering'],
   },
+  {
+    id: 'normal-stress',
+    title: 'Axial stress & deformation',
+    description:
+      'σ = F/A, ε = σ/E, δ = FL/(AE) — adjust force, area, length, and modulus for an axial bar under tension.',
+    sectionIds: ['mechanics-materials'],
+  },
 ];
 
 export const FORMULA_CARDS: FormulaCard[] = [
@@ -212,6 +219,34 @@ export const FORMULA_CARDS: FormulaCard[] = [
     variables: [
       { symbol: 'F', name: 'axial force', units: 'N' },
       { symbol: 'A', name: 'area', units: 'm²' },
+    ],
+    handbookSection: 'Mechanics of Materials',
+  },
+  {
+    id: 'fc-hooke-law',
+    topicId: 'mom-normal-stress',
+    title: "Hooke's law (1-D)",
+    expression: 'σ = E ε',
+    latex: String.raw`\sigma = E\,\varepsilon`,
+    variables: [
+      { symbol: 'σ', name: 'normal stress', units: 'Pa' },
+      { symbol: 'E', name: 'modulus of elasticity', units: 'Pa' },
+      { symbol: 'ε', name: 'normal strain', units: '—' },
+    ],
+    handbookSection: 'Mechanics of Materials',
+  },
+  {
+    id: 'fc-axial-deformation',
+    topicId: 'mom-normal-stress',
+    title: 'Axial deformation',
+    expression: 'δ = F L / (A E)',
+    latex: String.raw`\delta = \frac{FL}{AE}`,
+    variables: [
+      { symbol: 'δ', name: 'total deformation', units: 'm' },
+      { symbol: 'F', name: 'axial force', units: 'N' },
+      { symbol: 'L', name: 'original length', units: 'm' },
+      { symbol: 'A', name: 'cross-sectional area', units: 'm²' },
+      { symbol: 'E', name: 'modulus of elasticity', units: 'Pa' },
     ],
     handbookSection: 'Mechanics of Materials',
   },
@@ -468,6 +503,30 @@ export const QUIZ_ITEMS: QuizItem[] = [
     explanation: 'Axial load gives normal stress on a cross-section.',
   },
   {
+    id: 'q-stress-3',
+    topicId: 'mom-normal-stress',
+    question: "Hooke's law σ = Eε holds up to:",
+    choices: ['Ultimate stress', 'Proportional limit', 'Rupture', 'Yield stress always'],
+    correctIndex: 1,
+    explanation: 'The linear σ–ε relationship is valid within the proportional limit of the material.',
+  },
+  {
+    id: 'q-stress-4',
+    topicId: 'mom-normal-stress',
+    question: 'For a prismatic bar δ = FL/(AE), doubling both F and L with fixed A and E:',
+    choices: ['Doubles δ', 'Quadruples δ', 'Unchanged δ', 'Halves δ'],
+    correctIndex: 1,
+    explanation: 'δ is linear in both F and L, so doubling each multiplies δ by 4.',
+  },
+  {
+    id: 'q-stress-5',
+    topicId: 'mom-normal-stress',
+    question: 'Steel (E ≈ 200 GPa) vs aluminum (E ≈ 70 GPa) under the same σ: which has larger ε?',
+    choices: ['Steel', 'Aluminum', 'Same ε', 'Cannot determine'],
+    correctIndex: 1,
+    explanation: 'ε = σ/E; lower E means larger strain for the same stress.',
+  },
+  {
     id: 'q-heat-1',
     topicId: 'heat-fourier-wall',
     question: 'In 1-D conduction, larger thermal conductivity k (same temperature gradient) implies:',
@@ -686,15 +745,22 @@ Rigid-body statics adds ΣM = 0; use handbook frames and notation when problems 
     title: 'Axial stress introduction',
     handbookSection: 'Mechanics of Materials',
     pageHint: 130,
-    learningObjectives: ['Compute average normal stress σ = F/A', 'Track units for stress'],
+    learningObjectives: [
+      'Compute average normal stress σ = F/A',
+      "Apply Hooke's law ε = σ/E within elastic range",
+      'Calculate axial deformation δ = FL/(AE)',
+      'Track units for stress',
+    ],
     lesson: `Average normal stress on a cross-section carrying axial force is σ = F/A. Tension vs compression is carried by the sign convention you choose—stay consistent with the handbook figure you are emulating.
 
 Stress is not force: halving the area doubles stress for the same load. Watch SI vs USCS units; stress often ends up in Pa or ksi after conversions.
 
+Hooke's law σ = Eε ties stress to strain for linearly elastic materials. The deformation formula δ = FL/(AE) wraps everything into one expression for a prismatic bar.
+
 Advanced items add shear, bending, and stress transformations—grow into those from this axial base.`,
-    formulaCardIds: ['fc-stress-normal'],
-    quizItemIds: ['q-stress-1', 'q-stress-2'],
-    simulatorIds: [],
+    formulaCardIds: ['fc-stress-normal', 'fc-hooke-law', 'fc-axial-deformation'],
+    quizItemIds: ['q-stress-1', 'q-stress-2', 'q-stress-3', 'q-stress-4', 'q-stress-5'],
+    simulatorIds: ['normal-stress'],
   },
   {
     id: 'heat-fourier-wall',

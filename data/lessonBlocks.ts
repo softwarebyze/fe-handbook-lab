@@ -223,6 +223,76 @@ export const LESSON_BLOCKS: Record<string, LessonBlock[]> = {
     },
   ],
 
+  'mom-normal-stress': [
+    {
+      type: 'lead',
+      text: 'Everything in Mechanics of Materials starts with the simplest load path: a straight bar pulled in tension. Master σ = F/A before you face bending, torsion, or combined loading.',
+    },
+    {
+      type: 'heading',
+      text: 'Average normal stress',
+    },
+    {
+      type: 'math',
+      latex: String.raw`\sigma = \frac{F}{A}`,
+      caption: 'Force over cross-sectional area—valid for prismatic bars with uniform loading.',
+    },
+    {
+      type: 'paragraph',
+      text: 'Stress has units of force/area (Pa or psi). Halving the cross-section doubles stress for the same load—this is the single most common scaling trap in FE items on axial members.',
+    },
+    {
+      type: 'heading',
+      text: "Hooke's law & strain",
+    },
+    {
+      type: 'math',
+      latex: String.raw`\sigma = E\,\varepsilon \quad\Longrightarrow\quad \varepsilon = \frac{\sigma}{E}`,
+      caption: 'Linear elastic region: stress proportional to strain.',
+    },
+    {
+      type: 'bullet',
+      items: [
+        'E (modulus of elasticity) is a material constant—steel ≈ 200 GPa, aluminum ≈ 70 GPa.',
+        'ε is dimensionless: change in length divided by original length.',
+        'Valid only below the proportional limit; beyond that, use the stress–strain curve from your handbook.',
+      ],
+    },
+    {
+      type: 'heading',
+      text: 'Total axial deformation',
+    },
+    {
+      type: 'math',
+      latex: String.raw`\delta = \frac{FL}{AE}`,
+      caption: 'Combines stress and strain into one displacement result.',
+    },
+    {
+      type: 'callout',
+      variant: 'insight',
+      title: 'Stiffer means less stretch',
+      body: 'δ is inversely proportional to both A and E. A bar twice as thick or twice as stiff stretches half as much under the same load—watch this in the lab below.',
+    },
+    {
+      type: 'callout',
+      variant: 'lab',
+      title: 'Dial force, area, length, and modulus',
+      body: 'See σ, ε, and δ update in real time. The visual bar stretches and changes thickness so you build geometric intuition alongside the numbers.',
+      simId: 'normal-stress',
+    },
+    {
+      type: 'checkpoint',
+      title: 'Quick self-check',
+      body: 'If F doubles, σ doubles and δ doubles. If A doubles, σ halves and δ halves. If E doubles, ε halves and δ halves but σ stays the same. Say these aloud while dragging sliders.',
+    },
+    {
+      type: 'callout',
+      variant: 'exam',
+      title: 'Handbook pairing',
+      body: 'The Mechanics of Materials section (p. 130) includes stress–strain diagrams, thermal deformation δ = αLΔT, and shear stress formulas. Use those as your next study targets after nailing axial stress.',
+    },
+  ],
+
   'fluids-bernoulli': [
     {
       type: 'lead',
