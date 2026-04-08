@@ -4,6 +4,7 @@ import { ContinuityFlowSim } from '@/components/sim/ContinuityFlowSim';
 import { FirstOrderSim } from '@/components/sim/FirstOrderSim';
 import { MomentArmSim } from '@/components/sim/MomentArmSim';
 import { OhmLawSim } from '@/components/sim/OhmLawSim';
+import { PresentWorthSim } from '@/components/sim/PresentWorthSim';
 import { SecondOrderStepSim } from '@/components/sim/SecondOrderStepSim';
 import { SpringDamperSim } from '@/components/sim/SpringDamperSim';
 import { useAppColors } from '@/hooks/useAppColors';
@@ -26,6 +27,8 @@ export function SimView({ simId }: Props) {
       return <OhmLawSim />;
     case 'continuity-flow':
       return <ContinuityFlowSim />;
+    case 'present-worth':
+      return <PresentWorthSim />;
     default:
       return (
         <View style={styles.fallback}>

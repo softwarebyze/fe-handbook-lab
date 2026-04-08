@@ -46,6 +46,13 @@ export const SIMULATORS: SimulatorMeta[] = [
     description: 'Volumetric flow from area and average speed for incompressible 1-D thinking.',
     sectionIds: ['fluid-mechanics', 'chemical-engineering'],
   },
+  {
+    id: 'present-worth',
+    title: 'Time value of money',
+    description:
+      'All six FE interest factors at a glance — slide i and n to see how discounting erodes future dollars.',
+    sectionIds: ['economics'],
+  },
 ];
 
 export const FORMULA_CARDS: FormulaCard[] = [
@@ -238,6 +245,54 @@ export const FORMULA_CARDS: FormulaCard[] = [
       { symbol: 'n', name: 'count', units: '—' },
     ],
     handbookSection: 'Engineering Probability and Statistics',
+  },
+  {
+    id: 'fc-present-worth',
+    topicId: 'econ-present-worth',
+    title: 'Single payment present worth',
+    expression: 'P = F / (1+i)ⁿ',
+    latex: String.raw`P = \frac{F}{(1+i)^n}`,
+    variables: [
+      { symbol: 'P', name: 'present value', units: '$' },
+      { symbol: 'F', name: 'future value', units: '$' },
+      { symbol: 'i', name: 'interest rate per period', units: '—' },
+      { symbol: 'n', name: 'number of periods', units: '—' },
+    ],
+    handbookSection: 'Engineering Economics',
+  },
+  {
+    id: 'fc-compound-amount',
+    topicId: 'econ-present-worth',
+    title: 'Single payment compound amount',
+    expression: 'F = P (1+i)ⁿ',
+    latex: String.raw`F = P(1+i)^n`,
+    variables: [
+      { symbol: 'F', name: 'future value', units: '$' },
+      { symbol: 'P', name: 'present value', units: '$' },
+    ],
+    handbookSection: 'Engineering Economics',
+  },
+  {
+    id: 'fc-series-pw',
+    topicId: 'econ-present-worth',
+    title: 'Uniform series present worth',
+    expression: 'P = A [(1+i)ⁿ − 1] / [i(1+i)ⁿ]',
+    latex: String.raw`P = A \frac{(1+i)^n - 1}{i(1+i)^n}`,
+    variables: [
+      { symbol: 'A', name: 'uniform periodic amount', units: '$' },
+    ],
+    handbookSection: 'Engineering Economics',
+  },
+  {
+    id: 'fc-capital-recovery',
+    topicId: 'econ-present-worth',
+    title: 'Capital recovery factor',
+    expression: 'A = P i(1+i)ⁿ / [(1+i)ⁿ − 1]',
+    latex: String.raw`A = P \frac{i(1+i)^n}{(1+i)^n - 1}`,
+    variables: [
+      { symbol: 'A', name: 'uniform periodic payment', units: '$' },
+    ],
+    handbookSection: 'Engineering Economics',
   },
 ];
 
@@ -498,6 +553,46 @@ export const QUIZ_ITEMS: QuizItem[] = [
     choices: ['Rings above 1', 'Approaches 1 without oscillation', 'Diverges', 'Sticks at 0'],
     correctIndex: 1,
     explanation: 'Overdamped step response creeps toward 1 with no overshoot.',
+  },
+  {
+    id: 'q-econ-1',
+    topicId: 'econ-present-worth',
+    question: 'The present worth factor (P/F, i, n) equals:',
+    choices: ['(1+i)ⁿ', '1/(1+i)ⁿ', 'i·(1+i)ⁿ', 'n·i'],
+    correctIndex: 1,
+    explanation: 'P/F discounts a future sum back n periods at rate i.',
+  },
+  {
+    id: 'q-econ-2',
+    topicId: 'econ-present-worth',
+    question: 'If i = 6% and n = 12, the compound amount factor (F/P) is approximately:',
+    choices: ['1.72', '2.01', '1.42', '0.50'],
+    correctIndex: 1,
+    explanation: '(1.06)^12 ≈ 2.012.',
+  },
+  {
+    id: 'q-econ-3',
+    topicId: 'econ-present-worth',
+    question: 'Increasing the interest rate i (with n fixed) causes the present worth of a future payment to:',
+    choices: ['Increase', 'Stay the same', 'Decrease', 'Become negative'],
+    correctIndex: 2,
+    explanation: 'Higher discount rate shrinks P = F/(1+i)ⁿ.',
+  },
+  {
+    id: 'q-econ-4',
+    topicId: 'econ-present-worth',
+    question: 'The capital recovery factor (A/P, i, n) is the reciprocal of:',
+    choices: ['(F/P, i, n)', '(P/A, i, n)', '(A/F, i, n)', '(F/A, i, n)'],
+    correctIndex: 1,
+    explanation: '(A/P) = 1/(P/A) by definition of these complementary factors.',
+  },
+  {
+    id: 'q-econ-5',
+    topicId: 'econ-present-worth',
+    question: 'For very large n with positive i, (P/F, i, n) approaches:',
+    choices: ['Infinity', '1', '0', 'i'],
+    correctIndex: 2,
+    explanation: '1/(1+i)ⁿ → 0 as n → ∞ for any i > 0.',
   },
 ];
 
@@ -827,16 +922,25 @@ Use your NCEES PDF for the exact conversion blocks.`,
     simulatorIds: [],
   },
   {
-    id: 'econ-preview',
+    id: 'econ-present-worth',
     sectionId: 'economics',
-    title: 'Engineering economics placeholder',
+    title: 'Time value of money & interest factors',
     handbookSection: 'Engineering Economics',
     pageHint: 230,
-    learningObjectives: ['Present worth and annual worth patterns'],
-    lesson: `Placeholder: author original factor problems; use handbook interest factors in your PDF.`,
-    formulaCardIds: [],
-    quizItemIds: [],
-    simulatorIds: [],
+    learningObjectives: [
+      'Compute P, F, A using the six standard interest factors',
+      'Interpret how i and n shift present worth',
+    ],
+    lesson: `The FE exam relies on six discrete-compounding interest factors. Two are single-payment (P/F and F/P), two tie a uniform series to a present amount (P/A and A/P), and two tie a uniform series to a future amount (F/A and A/F).
+
+Each factor answers one question: "Given one cash-flow pattern, what is the equivalent amount in a different pattern at rate i over n periods?"
+
+Start with (P/F, i, n) = 1/(1+i)^n — it is the discount engine behind every present-worth comparison. Watch it shrink in the lab as you slide i and n upward.
+
+Use the factor table in your NCEES PDF for quick look-ups; the playground lets you verify your intuition before exam day.`,
+    formulaCardIds: ['fc-present-worth', 'fc-compound-amount', 'fc-series-pw', 'fc-capital-recovery'],
+    quizItemIds: ['q-econ-1', 'q-econ-2', 'q-econ-3', 'q-econ-4', 'q-econ-5'],
+    simulatorIds: ['present-worth'],
   },
   {
     id: 'chemeng-preview',

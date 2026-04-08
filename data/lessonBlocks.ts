@@ -223,6 +223,66 @@ export const LESSON_BLOCKS: Record<string, LessonBlock[]> = {
     },
   ],
 
+  'econ-present-worth': [
+    {
+      type: 'lead',
+      text: 'Money has a time dimension: a dollar today is worth more than a dollar tomorrow because you can invest it. The FE exam tests whether you can move cash flows to a common point in time.',
+    },
+    {
+      type: 'heading',
+      text: 'The six interest factors',
+    },
+    {
+      type: 'paragraph',
+      text: 'All six discrete-compounding factors are built from (1+i)ⁿ. Memorize the single-payment pair first; the series factors follow algebraically.',
+    },
+    {
+      type: 'math',
+      latex: String.raw`(P/F,\,i,\,n) = \frac{1}{(1+i)^n}, \qquad (F/P,\,i,\,n) = (1+i)^n`,
+      caption: 'Single-payment factors — the core of every TVM calculation.',
+    },
+    {
+      type: 'math',
+      latex: String.raw`(P/A,\,i,\,n) = \frac{(1+i)^n - 1}{i(1+i)^n}, \qquad (A/P,\,i,\,n) = \frac{i(1+i)^n}{(1+i)^n - 1}`,
+      caption: 'Uniform-series ↔ present worth (loan payments, annuities).',
+    },
+    {
+      type: 'bullet',
+      items: [
+        '(P/F) discounts a future sum back to today.',
+        '(F/P) compounds a present sum forward.',
+        '(P/A) totals a stream of equal payments in today\'s dollars.',
+        '(A/P) turns a lump sum into equal periodic payments (capital recovery).',
+        '(F/A) accumulates a series forward — the saver\'s factor.',
+        '(A/F) finds the periodic deposit needed to reach a future goal.',
+      ],
+    },
+    {
+      type: 'callout',
+      variant: 'insight',
+      title: 'Why higher i shrinks P',
+      body: 'A higher interest rate means each future dollar is worth less today because your alternative investment earns more. The discount curve in the lab bends down faster as you slide i up.',
+    },
+    {
+      type: 'callout',
+      variant: 'lab',
+      title: 'Watch all six factors move',
+      body: 'Slide i and n — the chart shows P/F at each period, and the factor table updates live. Cross-check against your handbook factor tables.',
+      simId: 'present-worth',
+    },
+    {
+      type: 'checkpoint',
+      title: 'Quick self-check',
+      body: 'At i = 10%, how many years until a dollar is worth less than half? Use the chart or compute: (1.10)ⁿ > 2 ⟹ n > 7.27 — so by year 8 in the chart P/F < 0.50.',
+    },
+    {
+      type: 'callout',
+      variant: 'exam',
+      title: 'Handbook pairing',
+      body: 'The factor tables in the Engineering Economics section of your NCEES PDF give pre-computed values. Use the playground to build intuition; use the tables for speed on exam day.',
+    },
+  ],
+
   'fluids-bernoulli': [
     {
       type: 'lead',
