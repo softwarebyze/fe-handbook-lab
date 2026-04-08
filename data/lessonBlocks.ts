@@ -223,10 +223,76 @@ export const LESSON_BLOCKS: Record<string, LessonBlock[]> = {
     },
   ],
 
+  'econ-tvm': [
+    {
+      type: 'lead',
+      text: "Engineering economics on the FE boils down to one idea: a dollar today is worth more than a dollar tomorrow because today's dollar can earn interest.",
+    },
+    {
+      type: 'heading',
+      text: 'Single payment compound amount',
+    },
+    {
+      type: 'math',
+      latex: String.raw`F = P\,(1+i)^n`,
+      caption: 'Lump-sum future value after n periods at rate i.',
+    },
+    {
+      type: 'paragraph',
+      text: 'This is the backbone: every other factor is derived from or related to (1+i)ⁿ. Discounting (P/F) is just its inverse.',
+    },
+    {
+      type: 'heading',
+      text: 'Uniform series factors',
+    },
+    {
+      type: 'math',
+      latex: String.raw`A = P\,\frac{i(1+i)^n}{(1+i)^n - 1} \quad \text{(A/P, capital recovery)}`,
+    },
+    {
+      type: 'math',
+      latex: String.raw`P = A\,\frac{(1+i)^n - 1}{i(1+i)^n} \quad \text{(P/A, series present worth)}`,
+      caption: 'A/P and P/A are reciprocals.',
+    },
+    {
+      type: 'bullet',
+      items: [
+        'F/P and P/F: single sums moved forward or backward in time.',
+        'F/A and A/F: accumulation of or saving toward a future lump sum.',
+        'P/A and A/P: convert a lump sum into uniform payments and vice versa—mortgages, leases.',
+        'As n → ∞, (P/A) → 1/i — the perpetuity formula.',
+      ],
+    },
+    {
+      type: 'callout',
+      variant: 'insight',
+      title: 'The power of compounding',
+      body: 'At 6% per year, $1,000 nearly doubles in 12 years (Rule of 72: 72/6 = 12). The playground chart makes this exponential curve visceral.',
+    },
+    {
+      type: 'callout',
+      variant: 'lab',
+      title: 'Compound and annuitize',
+      body: 'Slide interest rate and periods to see how quickly lump sums grow and how annuity payments accumulate.',
+      simId: 'time-value',
+    },
+    {
+      type: 'checkpoint',
+      title: 'Factor reciprocals',
+      body: 'A/P is 1/(P/A) and A/F is 1/(F/A). On the exam, if you only have one table direction, just take the reciprocal.',
+    },
+    {
+      type: 'callout',
+      variant: 'exam',
+      title: 'Handbook factor tables',
+      body: 'The exam provides tabulated factors for standard rates. Practice reading them in your NCEES PDF so lookup is fast on exam day.',
+    },
+  ],
+
   'fluids-bernoulli': [
     {
       type: 'lead',
-      text: 'Bernoulli is not magic—it is an energy line along a streamline when losses and shaft work are absent or handled separately.',
+      text: 'Bernoulli is not magic—it is an energy balance along a streamline when losses and shaft work are absent or handled separately.',
     },
     {
       type: 'math',

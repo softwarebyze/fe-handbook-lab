@@ -46,6 +46,13 @@ export const SIMULATORS: SimulatorMeta[] = [
     description: 'Volumetric flow from area and average speed for incompressible 1-D thinking.',
     sectionIds: ['fluid-mechanics', 'chemical-engineering'],
   },
+  {
+    id: 'time-value',
+    title: 'Time value of money',
+    description:
+      'Compound a lump sum or annuity at rate i over n periods — the six standard factors from the FE economics tables.',
+    sectionIds: ['economics'],
+  },
 ];
 
 export const FORMULA_CARDS: FormulaCard[] = [
@@ -238,6 +245,56 @@ export const FORMULA_CARDS: FormulaCard[] = [
       { symbol: 'n', name: 'count', units: '—' },
     ],
     handbookSection: 'Engineering Probability and Statistics',
+  },
+  {
+    id: 'fc-compound-amount',
+    topicId: 'econ-tvm',
+    title: 'Single payment compound amount',
+    expression: 'F = P (1 + i)ⁿ',
+    latex: String.raw`F = P\,(1+i)^n`,
+    variables: [
+      { symbol: 'F', name: 'future worth', units: '$' },
+      { symbol: 'P', name: 'present worth', units: '$' },
+      { symbol: 'i', name: 'interest rate per period', units: '—' },
+      { symbol: 'n', name: 'number of periods', units: '—' },
+    ],
+    handbookSection: 'Engineering Economics',
+  },
+  {
+    id: 'fc-present-worth',
+    topicId: 'econ-tvm',
+    title: 'Single payment present worth',
+    expression: 'P = F / (1 + i)ⁿ',
+    latex: String.raw`P = \frac{F}{(1+i)^n}`,
+    variables: [
+      { symbol: 'P', name: 'present worth', units: '$' },
+      { symbol: 'F', name: 'future worth', units: '$' },
+    ],
+    handbookSection: 'Engineering Economics',
+  },
+  {
+    id: 'fc-capital-recovery',
+    topicId: 'econ-tvm',
+    title: 'Capital recovery (A/P)',
+    expression: 'A = P · i(1+i)ⁿ / [(1+i)ⁿ − 1]',
+    latex: String.raw`A = P\,\frac{i(1+i)^n}{(1+i)^n - 1}`,
+    variables: [
+      { symbol: 'A', name: 'uniform annual amount', units: '$/period' },
+      { symbol: 'P', name: 'present worth', units: '$' },
+    ],
+    handbookSection: 'Engineering Economics',
+  },
+  {
+    id: 'fc-series-present-worth',
+    topicId: 'econ-tvm',
+    title: 'Uniform series present worth (P/A)',
+    expression: 'P = A · [(1+i)ⁿ − 1] / [i(1+i)ⁿ]',
+    latex: String.raw`P = A\,\frac{(1+i)^n - 1}{i(1+i)^n}`,
+    variables: [
+      { symbol: 'P', name: 'present worth', units: '$' },
+      { symbol: 'A', name: 'uniform annual amount', units: '$/period' },
+    ],
+    handbookSection: 'Engineering Economics',
   },
 ];
 
@@ -499,6 +556,56 @@ export const QUIZ_ITEMS: QuizItem[] = [
     correctIndex: 1,
     explanation: 'Overdamped step response creeps toward 1 with no overshoot.',
   },
+  {
+    id: 'q-econ-1',
+    topicId: 'econ-tvm',
+    question: '$1,000 at 6% annual interest compounded for 10 years gives F closest to:',
+    choices: ['$1,600', '$1,791', '$1,060', '$2,000'],
+    correctIndex: 1,
+    explanation: 'F = 1000 × (1.06)^10 ≈ 1,790.85.',
+  },
+  {
+    id: 'q-econ-2',
+    topicId: 'econ-tvm',
+    question: 'Doubling the interest rate with the same n will:',
+    choices: [
+      'Exactly double the future value',
+      'More than double the future value for large n',
+      'Leave the future value unchanged',
+      'Halve the present worth',
+    ],
+    correctIndex: 1,
+    explanation: 'Compounding is exponential in i; doubling i more than doubles (1+i)^n for n > 1.',
+  },
+  {
+    id: 'q-econ-3',
+    topicId: 'econ-tvm',
+    question: 'The (P/A, i, n) factor gives the present worth of:',
+    choices: [
+      'A single future payment',
+      'A uniform series of n equal payments',
+      'A gradient series',
+      'A geometric growth series',
+    ],
+    correctIndex: 1,
+    explanation: 'P/A converts a uniform annual amount A into its present worth P.',
+  },
+  {
+    id: 'q-econ-4',
+    topicId: 'econ-tvm',
+    question: 'As n → ∞, (P/A, i, n) approaches:',
+    choices: ['0', '1/i', 'i', '∞'],
+    correctIndex: 1,
+    explanation: '(P/A) = [(1+i)^n − 1]/[i(1+i)^n] → 1/i as n → ∞ (perpetuity).',
+  },
+  {
+    id: 'q-econ-5',
+    topicId: 'econ-tvm',
+    question: 'Capital recovery factor (A/P, i, n) is the reciprocal of:',
+    choices: ['(F/P, i, n)', '(P/A, i, n)', '(A/F, i, n)', '(F/A, i, n)'],
+    correctIndex: 1,
+    explanation: 'A/P = 1/(P/A) by definition.',
+  },
 ];
 
 const lessonMsd = `Free vibration of a single degree of freedom: visualize m, c, and k as knobs. The lab plots the exact closed-form solution (undamped through overdamped), not a numerical approximation.
@@ -609,7 +716,7 @@ Cross-check constants and conversions in your official handbook PDF.`,
     handbookSection: 'Fluid Mechanics',
     pageHint: 177,
     learningObjectives: ['Trade pressure and velocity in inviscid models'],
-    lesson: `Bernoulli is a energy-per-unit-volume picture along a streamline when losses and pump work are absent or handled separately.
+    lesson: `Bernoulli is an energy-per-unit-volume picture along a streamline when losses and pump work are absent or handled separately.
 
 Always ask: are assumptions valid for this FE item?`,
     formulaCardIds: ['fc-bernoulli'],
@@ -827,16 +934,26 @@ Use your NCEES PDF for the exact conversion blocks.`,
     simulatorIds: [],
   },
   {
-    id: 'econ-preview',
+    id: 'econ-tvm',
     sectionId: 'economics',
-    title: 'Engineering economics placeholder',
+    title: 'Time value of money',
     handbookSection: 'Engineering Economics',
     pageHint: 230,
-    learningObjectives: ['Present worth and annual worth patterns'],
-    lesson: `Placeholder: author original factor problems; use handbook interest factors in your PDF.`,
-    formulaCardIds: [],
-    quizItemIds: [],
-    simulatorIds: [],
+    learningObjectives: [
+      'Apply F = P(1+i)ⁿ for lump-sum compounding',
+      'Convert between P, F, and A using the six standard factors',
+      'Recognize perpetuity limit (P/A) → 1/i',
+    ],
+    lesson: `Engineering economics on the FE exam reduces to six discrete-compounding factors linking present worth P, future worth F, and uniform annual amount A.
+
+Start with F = P(1+i)ⁿ: money today is worth more than money later because it can earn interest. The compound amount factor (F/P) captures that growth; its inverse (P/F) discounts a future sum back to today.
+
+Uniform series factors (P/A and A/P) convert between a lump sum and a stream of equal payments—mortgage math, equipment leases, and levelized cost analyses all rely on these.
+
+Use the playground to see the exponential shape of compounding and how small changes in i or n shift the outcome dramatically. Cross-reference the factor tables in your official NCEES handbook PDF.`,
+    formulaCardIds: ['fc-compound-amount', 'fc-present-worth', 'fc-capital-recovery', 'fc-series-present-worth'],
+    quizItemIds: ['q-econ-1', 'q-econ-2', 'q-econ-3', 'q-econ-4', 'q-econ-5'],
+    simulatorIds: ['time-value'],
   },
   {
     id: 'chemeng-preview',
