@@ -214,12 +214,44 @@ export const LESSON_BLOCKS: Record<string, LessonBlock[]> = {
       text: 'The ideal gas model is a bookkeeping device: relate P, V, n, and T before you add heat capacities or flow work.',
     },
     {
+      type: 'heading',
+      text: 'The equation of state',
+    },
+    {
       type: 'math',
       latex: String.raw`PV = n R_u T`,
+      caption: 'Rᵤ = 8314 J/(kmol·K). Use consistent units for n.',
     },
     {
       type: 'paragraph',
       text: 'Watch units for n and Rᵤ (kmol vs mol). Ask every time: is this a closed system or a control volume? The same PV=nRT relation can appear in both, but the work/heat terms differ.',
+    },
+    {
+      type: 'bullet',
+      items: [
+        'Fixed n and T → P ∝ 1/V (isothermal compression raises pressure).',
+        'Fixed n and V → P ∝ T (heating in a rigid vessel raises pressure).',
+        'Fixed n and P → V ∝ T (isobaric heating expands the gas).',
+      ],
+    },
+    {
+      type: 'callout',
+      variant: 'insight',
+      title: 'Why "ideal"?',
+      body: 'The model assumes molecules occupy zero volume and exert no intermolecular forces. It works well at low pressures and moderate temperatures—exactly where many FE problems live.',
+    },
+    {
+      type: 'callout',
+      variant: 'lab',
+      title: 'Dial n, T, and V',
+      body: 'See pressure update instantly as you sweep each variable—builds the inverse/proportional intuition before you touch process paths.',
+      simId: 'ideal-gas',
+    },
+    {
+      type: 'callout',
+      variant: 'exam',
+      title: 'Unit traps',
+      body: 'The FE can mix kPa, atm, psi and kmol vs mol. Always confirm Rᵤ units match your n and P. The lab shows both kPa and atm for practice.',
     },
   ],
 

@@ -2,6 +2,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import { ContinuityFlowSim } from '@/components/sim/ContinuityFlowSim';
 import { FirstOrderSim } from '@/components/sim/FirstOrderSim';
+import { IdealGasSim } from '@/components/sim/IdealGasSim';
 import { MomentArmSim } from '@/components/sim/MomentArmSim';
 import { OhmLawSim } from '@/components/sim/OhmLawSim';
 import { SecondOrderStepSim } from '@/components/sim/SecondOrderStepSim';
@@ -26,6 +27,8 @@ export function SimView({ simId }: Props) {
       return <OhmLawSim />;
     case 'continuity-flow':
       return <ContinuityFlowSim />;
+    case 'ideal-gas':
+      return <IdealGasSim />;
     default:
       return (
         <View style={styles.fallback}>

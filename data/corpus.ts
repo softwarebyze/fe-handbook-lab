@@ -46,6 +46,13 @@ export const SIMULATORS: SimulatorMeta[] = [
     description: 'Volumetric flow from area and average speed for incompressible 1-D thinking.',
     sectionIds: ['fluid-mechanics', 'chemical-engineering'],
   },
+  {
+    id: 'ideal-gas',
+    title: 'Ideal gas law (PV = nRₜT)',
+    description:
+      'Adjust moles, temperature, and volume to watch pressure respond—builds intuition for the most-used thermodynamic equation of state.',
+    sectionIds: ['thermodynamics', 'chemical-engineering'],
+  },
 ];
 
 export const FORMULA_CARDS: FormulaCard[] = [
@@ -372,6 +379,22 @@ export const QUIZ_ITEMS: QuizItem[] = [
     explanation: 'P ∝ 1/V for isothermal ideal gas.',
   },
   {
+    id: 'q-thermo-2',
+    topicId: 'thermo-ideal-gas',
+    question: 'If temperature T doubles while n and V are held constant, ideal gas P:',
+    choices: ['Halves', 'Doubles', 'Unchanged', 'Quadruples'],
+    correctIndex: 1,
+    explanation: 'P = nRₜT/V is linear in T for fixed n and V.',
+  },
+  {
+    id: 'q-thermo-3',
+    topicId: 'thermo-ideal-gas',
+    question: 'The universal gas constant Rᵤ has SI units of:',
+    choices: ['J/(kg·K)', 'J/(kmol·K)', 'Pa·m³', 'kW/K'],
+    correctIndex: 1,
+    explanation: 'Rᵤ = 8314 J/(kmol·K) in the NCEES handbook convention.',
+  },
+  {
     id: 'q-fluid-1',
     topicId: 'fluids-bernoulli',
     question: 'Along a streamline with no shaft work, if speed increases, pressure tends to:',
@@ -599,8 +622,8 @@ Add your own notes here as you study; keep handbook tables for exact forms.`,
 
 Cross-check constants and conversions in your official handbook PDF.`,
     formulaCardIds: ['fc-ideal-gas'],
-    quizItemIds: ['q-thermo-1'],
-    simulatorIds: [],
+    quizItemIds: ['q-thermo-1', 'q-thermo-2', 'q-thermo-3'],
+    simulatorIds: ['ideal-gas'],
   },
   {
     id: 'fluids-bernoulli',
