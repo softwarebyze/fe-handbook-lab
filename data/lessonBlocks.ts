@@ -223,6 +223,58 @@ export const LESSON_BLOCKS: Record<string, LessonBlock[]> = {
     },
   ],
 
+  'mom-normal-stress': [
+    {
+      type: 'lead',
+      text: 'Before bending, torsion, or combined loading—start with the simplest stress picture: a straight bar pulled (or pushed) along its axis.',
+    },
+    {
+      type: 'heading',
+      text: 'Average normal stress',
+    },
+    {
+      type: 'paragraph',
+      text: 'Cut the bar at any cross-section. The internal axial force spreads uniformly (in the average model) over the cut area. Stress is not force—it is force intensity.',
+    },
+    {
+      type: 'math',
+      latex: String.raw`\sigma = \frac{F}{A}`,
+      caption: 'σ in Pa (N/m²); F in N; A in m². Tension → positive σ by most sign conventions.',
+    },
+    {
+      type: 'bullet',
+      items: [
+        'Doubling area halves the stress for the same load—material sees less intensity.',
+        'Doubling force doubles stress for the same area—material sees more intensity.',
+        'Circular cross-section: A = π d²/4. Small diameter changes have large area effects (quadratic).',
+      ],
+    },
+    {
+      type: 'callout',
+      variant: 'insight',
+      title: 'Why units matter',
+      body: 'FE problems mix SI (Pa, MPa, kN, mm²) and USCS (psi, ksi, lbf, in²). Converting area from mm² to m² means multiplying by 10⁻⁶—missing that factor is a classic exam trap.',
+    },
+    {
+      type: 'callout',
+      variant: 'lab',
+      title: 'See σ scale with F and d',
+      body: 'Drag force and diameter sliders: the lab shows the stress bar filling toward a mild-steel yield reference. Shrink the bar and watch stress jump—the area term is quadratic in diameter.',
+      simId: 'normal-stress',
+    },
+    {
+      type: 'checkpoint',
+      title: 'Quick self-check',
+      body: 'If you halve the diameter, area drops to one quarter and stress quadruples for the same F. Say it before you drag the slider.',
+    },
+    {
+      type: 'callout',
+      variant: 'exam',
+      title: 'Handbook pairing',
+      body: 'The Mechanics of Materials section of your NCEES PDF covers shear stress, strain, Hooke\u2019s law, and beam bending\u2014all build from this \u03C3 = F/A foundation.',
+    },
+  ],
+
   'fluids-bernoulli': [
     {
       type: 'lead',

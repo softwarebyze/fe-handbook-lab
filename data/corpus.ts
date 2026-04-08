@@ -46,6 +46,13 @@ export const SIMULATORS: SimulatorMeta[] = [
     description: 'Volumetric flow from area and average speed for incompressible 1-D thinking.',
     sectionIds: ['fluid-mechanics', 'chemical-engineering'],
   },
+  {
+    id: 'normal-stress',
+    title: 'Normal stress σ = F/A',
+    description:
+      'Set axial force and bar diameter; watch average normal stress and yield-ratio update instantly.',
+    sectionIds: ['mechanics-materials'],
+  },
 ];
 
 export const FORMULA_CARDS: FormulaCard[] = [
@@ -694,7 +701,7 @@ Stress is not force: halving the area doubles stress for the same load. Watch SI
 Advanced items add shear, bending, and stress transformations—grow into those from this axial base.`,
     formulaCardIds: ['fc-stress-normal'],
     quizItemIds: ['q-stress-1', 'q-stress-2'],
-    simulatorIds: [],
+    simulatorIds: ['normal-stress'],
   },
   {
     id: 'heat-fourier-wall',
