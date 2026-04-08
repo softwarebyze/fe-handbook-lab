@@ -30,9 +30,10 @@ export function MomentArmSim() {
   const pivotX = 72;
   const pivotY = h - 52;
   const maxLen = Math.max(32, boxW - pivotX - 28);
-  const len = Math.min(d * 58, maxLen);
+  const len = Math.max(20, Math.min(d * 58, maxLen));
   const fx = pivotX + len;
   const fy = pivotY;
+  const arrowSize = Math.min(14, len * 0.45);
 
   const onLayout = (e: LayoutChangeEvent) => {
     const w = e.nativeEvent.layout.width;
@@ -81,7 +82,7 @@ export function MomentArmSim() {
             strokeLinecap="round"
           />
           <Polygon
-            points={`${fx},${fy} ${fx - 14},${fy - 8} ${fx - 14},${fy + 8}`}
+            points={`${fx},${fy} ${fx - arrowSize},${fy - arrowSize * 0.57} ${fx - arrowSize},${fy + arrowSize * 0.57}`}
             fill={arrowColor}
           />
           <SvgText x={pivotX + len / 2 - 8} y={pivotY + 26} fill={colors.text} fontSize="13" fontWeight="600">

@@ -21,7 +21,7 @@ export function SpringDamperSim() {
   const [chartW, setChartW] = useState(320);
 
   const wn = Math.sqrt(k / m);
-  const zeta = c / (2 * Math.sqrt(m * k) || 1e-9);
+  const zeta = c / (2 * Math.sqrt(m * k) + 1e-12);
 
   const series = useMemo((): SeriesPoint[] => {
     const T = msdSuggestedHorizon(m, c, k);

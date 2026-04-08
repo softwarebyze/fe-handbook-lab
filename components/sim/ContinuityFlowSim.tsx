@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { LayoutChangeEvent, StyleSheet, Text, View } from 'react-native';
 import Svg, { Rect } from 'react-native-svg';
 
@@ -14,7 +14,7 @@ export function ContinuityFlowSim() {
   const Q = area * speed;
   const Q_Ls = Q * 1000;
 
-  const qFrac = useMemo(() => Math.min(1, Q / 2), [Q]);
+  const qFrac = Math.min(1, Q / 2);
 
   const onBarLayout = (e: LayoutChangeEvent) => {
     const w = e.nativeEvent.layout.width;

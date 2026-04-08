@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { LayoutChangeEvent, StyleSheet, Text, View } from 'react-native';
 import Svg, { Rect } from 'react-native-svg';
 
@@ -15,9 +15,8 @@ export function OhmLawSim() {
   const I = volts / r;
   const P = volts * I;
 
-  /** Normalize current bar (0–10 A maps to full width) */
-  const iFrac = useMemo(() => Math.min(1, I / 10), [I]);
-  const pFrac = useMemo(() => Math.min(1, P / 120), [P]);
+  const iFrac = Math.min(1, I / 10);
+  const pFrac = Math.min(1, P / 120);
 
   const onBarLayout = (e: LayoutChangeEvent) => {
     const w = e.nativeEvent.layout.width;
