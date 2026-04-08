@@ -187,6 +187,58 @@ export const LESSON_BLOCKS: Record<string, LessonBlock[]> = {
     },
   ],
 
+  'mom-normal-stress': [
+    {
+      type: 'lead',
+      text: 'Mechanics of materials starts with the simplest stress state: a straight bar pulled or pushed along its axis.',
+    },
+    {
+      type: 'heading',
+      text: 'Average normal stress',
+    },
+    {
+      type: 'math',
+      latex: String.raw`\sigma = \frac{F}{A}`,
+      caption: 'Force per unit area on the cross-section normal to the load.',
+    },
+    {
+      type: 'paragraph',
+      text: 'σ is not force — it is an intensity. Halving the area doubles the stress for the same load. That is why sizing a member is really about keeping stress below an allowable limit, not just about total load.',
+    },
+    {
+      type: 'bullet',
+      items: [
+        'Positive σ (tension) means the bar is being pulled apart.',
+        'Negative σ (compression) means it is being squeezed.',
+        'SI units: Pa = N/m². Engineering practice often uses MPa (10⁶ Pa) or ksi.',
+      ],
+    },
+    {
+      type: 'callout',
+      variant: 'insight',
+      title: 'Why area matters more than force',
+      body: 'A thin wire under 10 kN fails; a thick column under 10 kN barely notices. The formula σ = F/A captures this — stress depends on both load and geometry.',
+    },
+    {
+      type: 'callout',
+      variant: 'lab',
+      title: 'Dial force and area',
+      body: 'The lab shows σ updating live as you change F and A. Watch the bar thicken as area grows and notice how stress drops — the inverse relationship is immediate.',
+      simId: 'normal-stress',
+    },
+    {
+      type: 'checkpoint',
+      title: 'Unit check',
+      body: 'If F is in kN and A is in m², σ comes out in kPa. For MPa, either convert F to N or A to mm². Always track units through the formula on exam day.',
+    },
+    {
+      type: 'callout',
+      variant: 'exam',
+      title: 'Handbook extensions',
+      body: "From this axial base, mechanics of materials adds shear stress τ = V/A, bending stress σ = My/I, and combined states via Mohr's circle. Build familiarity with σ = F/A first, then layer on complexity from your NCEES PDF.",
+    },
+  ],
+
   'dynamics-work-energy': [
     {
       type: 'lead',

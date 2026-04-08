@@ -71,23 +71,34 @@ export function MomentArmSim() {
             rx={12}
           />
           <Circle cx={pivotX} cy={pivotY} r={9} fill={colors.textMuted} />
+          {/* Lever arm (horizontal) */}
           <Line
             x1={pivotX}
             y1={pivotY}
             x2={fx}
             y2={fy}
+            stroke={colors.textMuted}
+            strokeWidth={4}
+            strokeLinecap="round"
+          />
+          {/* Force arrow (perpendicular / downward) */}
+          <Line
+            x1={fx}
+            y1={fy}
+            x2={fx}
+            y2={fy - Math.min(F * 0.25, h - 70)}
             stroke={arrowColor}
             strokeWidth={5}
             strokeLinecap="round"
           />
           <Polygon
-            points={`${fx},${fy} ${fx - 14},${fy - 8} ${fx - 14},${fy + 8}`}
+            points={`${fx},${fy - Math.min(F * 0.25, h - 70)} ${fx - 8},${fy - Math.min(F * 0.25, h - 70) + 14} ${fx + 8},${fy - Math.min(F * 0.25, h - 70) + 14}`}
             fill={arrowColor}
           />
           <SvgText x={pivotX + len / 2 - 8} y={pivotY + 26} fill={colors.text} fontSize="13" fontWeight="600">
-            d
+            d⊥
           </SvgText>
-          <SvgText x={Math.min(fx + 8, boxW - 28)} y={fy - 14} fill={colors.text} fontSize="13" fontWeight="600">
+          <SvgText x={fx + 10} y={fy - Math.min(F * 0.15, (h - 70) / 2)} fill={colors.text} fontSize="13" fontWeight="600">
             F
           </SvgText>
         </Svg>
