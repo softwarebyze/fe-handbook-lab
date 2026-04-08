@@ -187,6 +187,67 @@ export const LESSON_BLOCKS: Record<string, LessonBlock[]> = {
     },
   ],
 
+  'econ-time-value': [
+    {
+      type: 'lead',
+      text: 'Engineering economics is about moving money through time. The compound interest formula is the single most-used relation on FE econ items.',
+    },
+    {
+      type: 'heading',
+      text: 'Single-payment factors',
+    },
+    {
+      type: 'math',
+      latex: String.raw`F = P(1+i)^n, \qquad P = \frac{F}{(1+i)^n}`,
+      caption: 'Compound amount (F/P) and present worth (P/F).',
+    },
+    {
+      type: 'paragraph',
+      text: 'Every other factor in the handbook factor tables is built from this single relationship. Master it and the rest are algebraic rearrangements.',
+    },
+    {
+      type: 'heading',
+      text: 'Uniform series factors',
+    },
+    {
+      type: 'math',
+      latex: String.raw`A = P\,\frac{i(1+i)^n}{(1+i)^n - 1}, \qquad F = A\,\frac{(1+i)^n - 1}{i}`,
+      caption: 'Capital recovery (A/P) and uniform series compound amount (F/A).',
+    },
+    {
+      type: 'bullet',
+      items: [
+        'A/P is a loan payment: equal installments that repay P plus interest over n periods.',
+        'F/A is a savings plan: equal deposits accumulating at compound interest.',
+        'As n → ∞, P/A → 1/i — the perpetuity formula.',
+      ],
+    },
+    {
+      type: 'callout',
+      variant: 'insight',
+      title: 'The power of compounding',
+      body: 'At 7% the Rule of 72 says money doubles in ≈10 years. The playground curve shows exactly how this exponential steepens with rate or horizon.',
+    },
+    {
+      type: 'callout',
+      variant: 'lab',
+      title: 'Sweep P, i, and n live',
+      body: 'Watch F = P(1+i)ⁿ grow on the chart and see the uniform annual equivalent update in real time.',
+      simId: 'econ-time-value',
+    },
+    {
+      type: 'checkpoint',
+      title: 'Quick self-check',
+      body: 'If i doubles (say 4% to 8%) and n = 20, F more than doubles—verify it on the playground before committing the number to memory.',
+    },
+    {
+      type: 'callout',
+      variant: 'exam',
+      title: 'Handbook pairing',
+      body: 'The FE Reference Handbook includes factor tables for common i and n values. Cross-reference your playground results with those tables to build confidence in reading them under exam pressure.',
+    },
+  ],
+
   'dynamics-work-energy': [
     {
       type: 'lead',

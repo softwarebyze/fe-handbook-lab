@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 
 import { ContinuityFlowSim } from '@/components/sim/ContinuityFlowSim';
+import { EconTimeValueSim } from '@/components/sim/EconTimeValueSim';
 import { FirstOrderSim } from '@/components/sim/FirstOrderSim';
 import { MomentArmSim } from '@/components/sim/MomentArmSim';
 import { OhmLawSim } from '@/components/sim/OhmLawSim';
@@ -26,6 +27,8 @@ export function SimView({ simId }: Props) {
       return <OhmLawSim />;
     case 'continuity-flow':
       return <ContinuityFlowSim />;
+    case 'econ-time-value':
+      return <EconTimeValueSim />;
     default:
       return (
         <View style={styles.fallback}>

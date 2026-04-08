@@ -45,7 +45,7 @@ export function SpringDamperSim() {
 
   return (
     <View style={styles.container}>
-      <View style={[styles.callout, { backgroundColor: colors.heroOverlay, borderColor: colors.tint }]}>
+      <View style={[styles.callout, { backgroundColor: colors.surface, borderColor: colors.border }]}>
         <Text style={[styles.hint, { color: colors.text }]}>
           Analytic solution to mẍ + cẋ + kx = 0 with x(0)=1, ẋ(0)=0. No numerical integration error—what
           you see is exactly the textbook response for your ζ and ωₙ.
