@@ -46,6 +46,12 @@ export const SIMULATORS: SimulatorMeta[] = [
     description: 'Volumetric flow from area and average speed for incompressible 1-D thinking.',
     sectionIds: ['fluid-mechanics', 'chemical-engineering'],
   },
+  {
+    id: 'normal-stress',
+    title: 'Normal stress (σ = F/A)',
+    description: 'Axial bar under tension or compression—set force and area; read stress and watch the cross-section scale.',
+    sectionIds: ['mechanics-materials'],
+  },
 ];
 
 export const FORMULA_CARDS: FormulaCard[] = [
@@ -468,6 +474,22 @@ export const QUIZ_ITEMS: QuizItem[] = [
     explanation: 'Axial load gives normal stress on a cross-section.',
   },
   {
+    id: 'q-stress-3',
+    topicId: 'mom-normal-stress',
+    question: 'A 50 kN tensile force acts on a bar with A = 500 mm². The stress σ is:',
+    choices: ['10 MPa', '25 MPa', '100 MPa', '250 MPa'],
+    correctIndex: 2,
+    explanation: 'σ = F/A = 50 000 N / (500 × 10⁻⁶ m²) = 100 × 10⁶ Pa = 100 MPa.',
+  },
+  {
+    id: 'q-stress-4',
+    topicId: 'mom-normal-stress',
+    question: 'Compressive axial stress is conventionally indicated by:',
+    choices: ['Positive σ', 'Negative σ', 'Zero σ', 'Only shear symbols'],
+    correctIndex: 1,
+    explanation: 'Standard sign convention: tension is positive, compression is negative.',
+  },
+  {
     id: 'q-heat-1',
     topicId: 'heat-fourier-wall',
     question: 'In 1-D conduction, larger thermal conductivity k (same temperature gradient) implies:',
@@ -686,15 +708,15 @@ Rigid-body statics adds ΣM = 0; use handbook frames and notation when problems 
     title: 'Axial stress introduction',
     handbookSection: 'Mechanics of Materials',
     pageHint: 130,
-    learningObjectives: ['Compute average normal stress σ = F/A', 'Track units for stress'],
+    learningObjectives: ['Compute average normal stress σ = F/A', 'Track units for stress', 'Distinguish tension from compression'],
     lesson: `Average normal stress on a cross-section carrying axial force is σ = F/A. Tension vs compression is carried by the sign convention you choose—stay consistent with the handbook figure you are emulating.
 
 Stress is not force: halving the area doubles stress for the same load. Watch SI vs USCS units; stress often ends up in Pa or ksi after conversions.
 
 Advanced items add shear, bending, and stress transformations—grow into those from this axial base.`,
     formulaCardIds: ['fc-stress-normal'],
-    quizItemIds: ['q-stress-1', 'q-stress-2'],
-    simulatorIds: [],
+    quizItemIds: ['q-stress-1', 'q-stress-2', 'q-stress-3', 'q-stress-4'],
+    simulatorIds: ['normal-stress'],
   },
   {
     id: 'heat-fourier-wall',

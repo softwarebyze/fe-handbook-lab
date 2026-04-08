@@ -223,6 +223,58 @@ export const LESSON_BLOCKS: Record<string, LessonBlock[]> = {
     },
   ],
 
+  'mom-normal-stress': [
+    {
+      type: 'lead',
+      text: 'Stress is not force—it is force distributed over area. That single ratio, σ = F/A, is your entry point to all of mechanics of materials on the FE.',
+    },
+    {
+      type: 'heading',
+      text: 'Average normal stress',
+    },
+    {
+      type: 'math',
+      latex: String.raw`\sigma = \frac{F}{A}`,
+      caption: 'Axial force F over cross-sectional area A, normal to the cut.',
+    },
+    {
+      type: 'paragraph',
+      text: 'When a prismatic bar carries a centric axial load, every cross-section away from the grips sees the same average normal stress. Positive σ is tension; negative is compression—match the sign convention in your NCEES handbook figure.',
+    },
+    {
+      type: 'bullet',
+      items: [
+        'Double the area at fixed force → stress halves. The bar "feels" less intensity.',
+        'Double the force at fixed area → stress doubles. Material limits decide failure.',
+        'SI stress lands in Pa (N/m²); USCS in psi or ksi after conversions.',
+      ],
+    },
+    {
+      type: 'callout',
+      variant: 'insight',
+      title: 'Why area matters more than force alone',
+      body: 'A 10 kN wire and a 10 kN column carry the same load, but wildly different stresses. Design and failure are about intensity, not totals—σ captures that.',
+    },
+    {
+      type: 'callout',
+      variant: 'lab',
+      title: 'Drag F and A to feel σ',
+      body: 'Watch the cross-section shrink as A drops, and stress climb as force increases. The stress gauge turns red above 250 MPa to flag high-stress regimes.',
+      simId: 'normal-stress',
+    },
+    {
+      type: 'checkpoint',
+      title: 'Quick self-check',
+      body: 'If you halve A while keeping F fixed, σ doubles. Say it while sliding—"half the area, double the stress." This proportionality appears in almost every MoM FE item.',
+    },
+    {
+      type: 'callout',
+      variant: 'exam',
+      title: 'Handbook pairing',
+      body: "Cross-reference the Mechanics of Materials section (~p. 130) for shear stress, beam bending, and Mohr's circle extensions that build on σ = F/A.",
+    },
+  ],
+
   'fluids-bernoulli': [
     {
       type: 'lead',
