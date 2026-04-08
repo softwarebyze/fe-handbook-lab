@@ -46,6 +46,13 @@ export const SIMULATORS: SimulatorMeta[] = [
     description: 'Volumetric flow from area and average speed for incompressible 1-D thinking.',
     sectionIds: ['fluid-mechanics', 'chemical-engineering'],
   },
+  {
+    id: 'heat-conduction',
+    title: '1-D wall conduction',
+    description:
+      'Fourier\u2019s law through a plane wall: q\u2033 = k \u0394T / L. Sweep conductivity, thickness, and boundary temperatures.',
+    sectionIds: ['heat-transfer', 'mechanical-engineering'],
+  },
 ];
 
 export const FORMULA_CARDS: FormulaCard[] = [
@@ -224,6 +231,18 @@ export const FORMULA_CARDS: FormulaCard[] = [
     variables: [
       { symbol: 'k', name: 'thermal conductivity', units: 'W/(m·K)' },
       { symbol: 'q″', name: 'heat flux', units: 'W/m²' },
+    ],
+    handbookSection: 'Heat Transfer',
+  },
+  {
+    id: 'fc-thermal-resistance',
+    topicId: 'heat-fourier-wall',
+    title: 'Plane wall thermal resistance',
+    expression: 'R/A = L / k',
+    latex: String.raw`\frac{R}{A} = \frac{L}{k}`,
+    variables: [
+      { symbol: 'L', name: 'wall thickness', units: 'm' },
+      { symbol: 'k', name: 'thermal conductivity', units: 'W/(m\u00b7K)' },
     ],
     handbookSection: 'Heat Transfer',
   },
@@ -476,6 +495,30 @@ export const QUIZ_ITEMS: QuizItem[] = [
     explanation: 'Fourier’s law: flux magnitude scales with k for a given |dT/dx|.',
   },
   {
+    id: 'q-heat-2',
+    topicId: 'heat-fourier-wall',
+    question: 'Doubling wall thickness L (all else equal) changes steady-state heat flux by a factor of:',
+    choices: ['2', '0.5', '4', '1 (unchanged)'],
+    correctIndex: 1,
+    explanation: 'q″ = kΔT/L — doubling L halves q″.',
+  },
+  {
+    id: 'q-heat-3',
+    topicId: 'heat-fourier-wall',
+    question: 'Thermal resistance per unit area for a plane wall (thickness L, conductivity k) is:',
+    choices: ['k / L', 'L / k', 'k · L', '1 / (k · L)'],
+    correctIndex: 1,
+    explanation: 'R/A = L/k, analogous to electrical resistance.',
+  },
+  {
+    id: 'q-heat-4',
+    topicId: 'heat-fourier-wall',
+    question: 'Steady conduction through a constant-k plane wall has a temperature profile that is:',
+    choices: ['Exponential', 'Linear', 'Parabolic', 'Logarithmic'],
+    correctIndex: 1,
+    explanation: 'With constant k and no generation, d²T/dx² = 0 — a straight line.',
+  },
+  {
     id: 'q-stat-1',
     topicId: 'stats-mean-variance',
     question: 'Sample variance with divisor (n − 1) is standard when estimating population variance from:',
@@ -708,9 +751,9 @@ Advanced items add shear, bending, and stress transformations—grow into those 
 The minus sign reminds you that heat flows from hot to cold in the coordinate sense your problem defines.
 
 Plane walls, cylinders, and convection resistances layer on top—use your licensed handbook for the full catalog of thermal resistance networks.`,
-    formulaCardIds: ['fc-heat-flux'],
-    quizItemIds: ['q-heat-1'],
-    simulatorIds: [],
+    formulaCardIds: ['fc-heat-flux', 'fc-thermal-resistance'],
+    quizItemIds: ['q-heat-1', 'q-heat-2', 'q-heat-3', 'q-heat-4'],
+    simulatorIds: ['heat-conduction'],
   },
   {
     id: 'stats-mean-variance',
@@ -824,7 +867,7 @@ Use your NCEES PDF for the exact conversion blocks.`,
     lesson: `Placeholder: link to first-order thermal lag intuition and handbook correlations.`,
     formulaCardIds: [],
     quizItemIds: [],
-    simulatorIds: [],
+    simulatorIds: ['heat-conduction'],
   },
   {
     id: 'econ-preview',

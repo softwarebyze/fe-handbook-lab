@@ -28,11 +28,12 @@ export function MomentArmSim() {
 
   const h = 210;
   const pivotX = 72;
-  const pivotY = h - 52;
-  const maxLen = Math.max(32, boxW - pivotX - 28);
+  const pivotY = h / 2 - 10;
+  const maxLen = Math.max(32, boxW - pivotX - 48);
   const len = Math.min(d * 58, maxLen);
-  const fx = pivotX + len;
-  const fy = pivotY;
+  const appX = pivotX + len;
+  const appY = pivotY;
+  const arrowLen = Math.min(F * 0.28, h / 2 - 24);
 
   const onLayout = (e: LayoutChangeEvent) => {
     const w = e.nativeEvent.layout.width;
@@ -40,13 +41,14 @@ export function MomentArmSim() {
   };
 
   const arrowColor = colors.tint;
+  const armColor = colors.textMuted;
 
   return (
     <View style={styles.container}>
       <View style={[styles.callout, { backgroundColor: colors.surface, borderColor: colors.border }]}>
         <Text style={[styles.hint, { color: colors.text }]}>
-          Perpendicular force and lever arm: M = F·d. Haptics tick when the moment crosses coarse
-          steps (device only).
+          Perpendicular force at distance d from the pivot: M = F·d⊥. Haptics tick when the moment
+          crosses coarse steps (device only).
         </Text>
       </View>
 
@@ -70,25 +72,42 @@ export function MomentArmSim() {
             strokeWidth={1}
             rx={12}
           />
-          <Circle cx={pivotX} cy={pivotY} r={9} fill={colors.textMuted} />
+          <Circle cx={pivotX} cy={pivotY} r={9} fill={armColor} />
+          {/* Lever arm (horizontal) */}
           <Line
             x1={pivotX}
             y1={pivotY}
-            x2={fx}
-            y2={fy}
+            x2={appX}
+            y2={appY}
+            stroke={armColor}
+            strokeWidth={4}
+            strokeLinecap="round"
+          />
+          <Circle cx={appX} cy={appY} r={5} fill={armColor} />
+          {/* Force arrow pointing downward (perpendicular to arm) */}
+          <Line
+            x1={appX}
+            y1={appY}
+            x2={appX}
+            y2={appY + arrowLen}
             stroke={arrowColor}
-            strokeWidth={5}
+            strokeWidth={4}
             strokeLinecap="round"
           />
           <Polygon
-            points={`${fx},${fy} ${fx - 14},${fy - 8} ${fx - 14},${fy + 8}`}
+            points={`${appX},${appY + arrowLen + 10} ${appX - 8},${appY + arrowLen - 4} ${appX + 8},${appY + arrowLen - 4}`}
             fill={arrowColor}
           />
-          <SvgText x={pivotX + len / 2 - 8} y={pivotY + 26} fill={colors.text} fontSize="13" fontWeight="600">
+          {/* Labels */}
+          <SvgText x={pivotX + len / 2 - 4} y={pivotY - 14} fill={colors.text} fontSize="13" fontWeight="600" textAnchor="middle">
             d
           </SvgText>
-          <SvgText x={Math.min(fx + 8, boxW - 28)} y={fy - 14} fill={colors.text} fontSize="13" fontWeight="600">
+          <SvgText x={appX + 16} y={appY + arrowLen / 2 + 4} fill={colors.text} fontSize="13" fontWeight="600">
             F
+          </SvgText>
+          {/* Curved moment arc at pivot */}
+          <SvgText x={pivotX - 8} y={pivotY + 30} fill={colors.textSecondary} fontSize="11" fontWeight="700">
+            M
           </SvgText>
         </Svg>
       </View>

@@ -168,6 +168,50 @@ export const LESSON_BLOCKS: Record<string, LessonBlock[]> = {
     },
   ],
 
+  'heat-fourier-wall': [
+    {
+      type: 'lead',
+      text: 'Fourier\u2019s law in 1-D is the conduction starting point: heat flux is proportional to the temperature gradient and the material\u2019s thermal conductivity.',
+    },
+    {
+      type: 'math',
+      latex: String.raw`q'' = -k \frac{dT}{dx} \qquad \Rightarrow \qquad q'' = k\,\frac{T_1 - T_2}{L}`,
+      caption: 'Steady plane wall with constant k; minus sign absorbed by convention (hot → cold).',
+    },
+    {
+      type: 'bullet',
+      items: [
+        'Larger k → more heat flows for the same ΔT (metals vs insulators).',
+        'Thicker wall (larger L) → lower heat flux for the same boundary temperatures.',
+        'Thermal resistance per unit area: R/A = L/k — analogous to electrical R.',
+      ],
+    },
+    {
+      type: 'callout',
+      variant: 'insight',
+      title: 'Electrical analogy',
+      body: 'q″ = ΔT / (L/k) mirrors I = V/R. Stack resistances in series for composite walls, just like resistors in a circuit.',
+    },
+    {
+      type: 'callout',
+      variant: 'lab',
+      title: 'See the gradient',
+      body: 'Sweep k from insulator to metal and watch the temperature profile and heat flux respond. The linear profile only holds for constant k and steady state.',
+      simId: 'heat-conduction',
+    },
+    {
+      type: 'checkpoint',
+      title: 'Self-check',
+      body: 'Doubling wall thickness halves the heat flux (for fixed boundary temps). Doubling k doubles it. Both are linear—say it while you drag the sliders.',
+    },
+    {
+      type: 'callout',
+      variant: 'exam',
+      title: 'Handbook extensions',
+      body: 'The FE handbook includes composite wall, cylindrical, and convective boundary formulas. Use the R-per-area approach from this lab as a mental scaffold before looking up the multi-layer equations.',
+    },
+  ],
+
   'fluids-continuity': [
     {
       type: 'lead',
