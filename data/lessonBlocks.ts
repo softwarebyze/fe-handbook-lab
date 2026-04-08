@@ -240,4 +240,71 @@ export const LESSON_BLOCKS: Record<string, LessonBlock[]> = {
       body: 'Before applying, ask: steady? inviscid along the streamline? incompressible? no shaft work between points? If any “no,” reach for a richer form from your handbook.',
     },
   ],
+
+  'econ-tvm': [
+    {
+      type: 'lead',
+      text: 'Engineering economics on the FE is almost entirely about moving cash through time. Learn five interest factors and you own the section.',
+    },
+    {
+      type: 'heading',
+      text: 'Single-payment compound amount',
+    },
+    {
+      type: 'math',
+      latex: String.raw`F = P\,(1 + i)^n`,
+      caption: 'The (F/P, i, n) factor\u2014foundation of every other factor.',
+    },
+    {
+      type: 'paragraph',
+      text: 'A present sum P, earning interest i per period, grows exponentially. The inverse (P/F) = 1/(1+i)^n discounts a future amount back to today.',
+    },
+    {
+      type: 'heading',
+      text: 'Uniform-series factors',
+    },
+    {
+      type: 'math',
+      latex: String.raw`P = A\,\frac{(1+i)^n - 1}{i\,(1+i)^n}`,
+      caption: '(P/A, i, n) \u2014 present worth of n equal payments.',
+    },
+    {
+      type: 'math',
+      latex: String.raw`A = P\,\frac{i\,(1+i)^n}{(1+i)^n - 1}`,
+      caption: '(A/P, i, n) \u2014 capital recovery (e.g., mortgage payment).',
+    },
+    {
+      type: 'bullet',
+      items: [
+        '(F/A): sinking fund accumulation\u2014what a series of deposits grows to.',
+        '(P/A): annuity present worth\u2014\u201cwhat is this stream of payments worth today?\u201d',
+        '(A/P): capital recovery\u2014\u201cwhat annual payment pays off this loan?\u201d',
+        'As n \u2192 \u221e with i > 0, (P/A) \u2192 1/i (perpetuity formula).',
+      ],
+    },
+    {
+      type: 'callout',
+      variant: 'insight',
+      title: 'Factor relationships',
+      body: '(A/P) is the reciprocal of (P/A). (F/P) \u00d7 (P/A) = (F/A). Memorize the structure; the handbook gives the formulas.',
+    },
+    {
+      type: 'callout',
+      variant: 'lab',
+      title: 'Watch compounding in action',
+      body: 'Slide the interest rate up and watch the gap between principal and future value explode\u2014this is why Einstein allegedly called compound interest the eighth wonder.',
+      simId: 'tvm-compound',
+    },
+    {
+      type: 'checkpoint',
+      title: 'Quick self-check',
+      body: 'At 6% for 12 years, (F/P) \u2248 2.012\u2014your money roughly doubles. The Rule of 72 says 72/6 = 12 years. Try it in the lab.',
+    },
+    {
+      type: 'callout',
+      variant: 'exam',
+      title: 'Handbook pairing',
+      body: 'The FE Reference Handbook (p. 230) lists all standard interest factors and their formulas. Use the app for intuition, then confirm factor values from the official tables.',
+    },
+  ],
 };

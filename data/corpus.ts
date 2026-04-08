@@ -46,6 +46,13 @@ export const SIMULATORS: SimulatorMeta[] = [
     description: 'Volumetric flow from area and average speed for incompressible 1-D thinking.',
     sectionIds: ['fluid-mechanics', 'chemical-engineering'],
   },
+  {
+    id: 'tvm-compound',
+    title: 'Time value of money',
+    description:
+      'Compound interest F = P(1+i)^n with live factor table—core engineering economics intuition.',
+    sectionIds: ['economics'],
+  },
 ];
 
 export const FORMULA_CARDS: FormulaCard[] = [
@@ -238,6 +245,44 @@ export const FORMULA_CARDS: FormulaCard[] = [
       { symbol: 'n', name: 'count', units: '—' },
     ],
     handbookSection: 'Engineering Probability and Statistics',
+  },
+  {
+    id: 'fc-tvm-fp',
+    topicId: 'econ-tvm',
+    title: 'Single-payment compound amount',
+    expression: 'F = P (1 + i)^n',
+    latex: String.raw`F = P\,(1 + i)^n`,
+    variables: [
+      { symbol: 'P', name: 'present value', units: '$' },
+      { symbol: 'F', name: 'future value', units: '$' },
+      { symbol: 'i', name: 'interest rate per period', units: '—' },
+      { symbol: 'n', name: 'number of periods', units: '—' },
+    ],
+    handbookSection: 'Engineering Economics',
+  },
+  {
+    id: 'fc-tvm-pa',
+    topicId: 'econ-tvm',
+    title: 'Uniform-series present worth',
+    expression: 'P = A [(1+i)^n − 1] / [i(1+i)^n]',
+    latex: String.raw`P = A\,\frac{(1+i)^n - 1}{i\,(1+i)^n}`,
+    variables: [
+      { symbol: 'A', name: 'uniform periodic amount', units: '$' },
+      { symbol: 'P', name: 'present value', units: '$' },
+    ],
+    handbookSection: 'Engineering Economics',
+  },
+  {
+    id: 'fc-tvm-ap',
+    topicId: 'econ-tvm',
+    title: 'Capital recovery factor',
+    expression: 'A = P [i(1+i)^n] / [(1+i)^n − 1]',
+    latex: String.raw`A = P\,\frac{i\,(1+i)^n}{(1+i)^n - 1}`,
+    variables: [
+      { symbol: 'A', name: 'uniform periodic payment', units: '$' },
+      { symbol: 'P', name: 'present value', units: '$' },
+    ],
+    handbookSection: 'Engineering Economics',
   },
 ];
 
@@ -498,6 +543,51 @@ export const QUIZ_ITEMS: QuizItem[] = [
     choices: ['Rings above 1', 'Approaches 1 without oscillation', 'Diverges', 'Sticks at 0'],
     correctIndex: 1,
     explanation: 'Overdamped step response creeps toward 1 with no overshoot.',
+  },
+  {
+    id: 'q-econ-1',
+    topicId: 'econ-tvm',
+    question: 'If $1,000 is invested at 8% annual interest compounded yearly, the value after 10 years is closest to:',
+    choices: ['$1,800', '$2,159', '$2,594', '$1,080'],
+    correctIndex: 1,
+    explanation: 'F = 1000(1.08)^10 ≈ $2,158.92.',
+  },
+  {
+    id: 'q-econ-2',
+    topicId: 'econ-tvm',
+    question: 'Doubling the interest rate while holding n fixed will cause the (F/P) factor to:',
+    choices: ['Double', 'Less than double', 'More than double', 'Stay the same'],
+    correctIndex: 2,
+    explanation: '(1+2i)^n grows faster than 2·(1+i)^n for n > 1 due to the exponential nature of compounding.',
+  },
+  {
+    id: 'q-econ-3',
+    topicId: 'econ-tvm',
+    question: 'The (P/F) factor is always:',
+    choices: ['Greater than 1', 'Equal to 1', 'Between 0 and 1 for i > 0', 'Negative'],
+    correctIndex: 2,
+    explanation: '(P/F) = 1/(1+i)^n < 1 when i > 0 and n ≥ 1.',
+  },
+  {
+    id: 'q-econ-4',
+    topicId: 'econ-tvm',
+    question: 'The capital recovery factor (A/P) tells you:',
+    choices: [
+      'How much a future sum is worth today',
+      'The uniform annual payment to repay a present amount',
+      'The future value of a series of payments',
+      'The present value of a gradient series',
+    ],
+    correctIndex: 1,
+    explanation: '(A/P, i, n) converts a lump sum P into n equal periodic payments.',
+  },
+  {
+    id: 'q-econ-5',
+    topicId: 'econ-tvm',
+    question: 'As n → ∞, the (P/A, i, n) factor for i > 0 approaches:',
+    choices: ['0', '∞', '1/i', 'i'],
+    correctIndex: 2,
+    explanation: 'P/A = [(1+i)^n − 1]/[i(1+i)^n] → 1/i as n → ∞ (perpetuity).',
   },
 ];
 
@@ -827,16 +917,26 @@ Use your NCEES PDF for the exact conversion blocks.`,
     simulatorIds: [],
   },
   {
-    id: 'econ-preview',
+    id: 'econ-tvm',
     sectionId: 'economics',
-    title: 'Engineering economics placeholder',
+    title: 'Time value of money',
     handbookSection: 'Engineering Economics',
     pageHint: 230,
-    learningObjectives: ['Present worth and annual worth patterns'],
-    lesson: `Placeholder: author original factor problems; use handbook interest factors in your PDF.`,
-    formulaCardIds: [],
-    quizItemIds: [],
-    simulatorIds: [],
+    learningObjectives: [
+      'Compute F given P using compound interest',
+      'Use standard interest factors (F/P, P/F, P/A, A/P, F/A)',
+      'Compare alternatives using present-worth analysis',
+    ],
+    lesson: `Engineering economics on the FE exam is almost entirely about moving money through time with compound interest factors.
+
+The foundation is F = P(1+i)^n: a present amount P grows to future value F at rate i over n periods. The inverse (P/F) discounts future cash to the present.
+
+Uniform series factors (P/A, A/P, F/A, A/F) handle equal periodic payments—loan repayment, annuities, and sinking funds. The capital recovery factor (A/P) is what your mortgage uses.
+
+Use the playground to watch the exponential growth curve and see all five major factors update as you sweep rate and periods.`,
+    formulaCardIds: ['fc-tvm-fp', 'fc-tvm-pa', 'fc-tvm-ap'],
+    quizItemIds: ['q-econ-1', 'q-econ-2', 'q-econ-3', 'q-econ-4', 'q-econ-5'],
+    simulatorIds: ['tvm-compound'],
   },
   {
     id: 'chemeng-preview',
