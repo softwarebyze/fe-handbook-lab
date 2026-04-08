@@ -71,9 +71,21 @@ export function MomentArmSim() {
             rx={12}
           />
           <Circle cx={pivotX} cy={pivotY} r={9} fill={colors.textMuted} />
+          {/* Lever arm (horizontal) */}
           <Line
             x1={pivotX}
             y1={pivotY}
+            x2={fx}
+            y2={fy}
+            stroke={colors.textMuted}
+            strokeWidth={3}
+            strokeLinecap="round"
+            strokeDasharray="6 4"
+          />
+          {/* Perpendicular force arrow (downward at tip of arm) */}
+          <Line
+            x1={fx}
+            y1={fy - 60}
             x2={fx}
             y2={fy}
             stroke={arrowColor}
@@ -81,13 +93,13 @@ export function MomentArmSim() {
             strokeLinecap="round"
           />
           <Polygon
-            points={`${fx},${fy} ${fx - 14},${fy - 8} ${fx - 14},${fy + 8}`}
+            points={`${fx},${fy} ${fx - 8},${fy - 14} ${fx + 8},${fy - 14}`}
             fill={arrowColor}
           />
           <SvgText x={pivotX + len / 2 - 8} y={pivotY + 26} fill={colors.text} fontSize="13" fontWeight="600">
-            d
+            d⊥
           </SvgText>
-          <SvgText x={Math.min(fx + 8, boxW - 28)} y={fy - 14} fill={colors.text} fontSize="13" fontWeight="600">
+          <SvgText x={fx + 10} y={fy - 34} fill={colors.text} fontSize="13" fontWeight="600">
             F
           </SvgText>
         </Svg>

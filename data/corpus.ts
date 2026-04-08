@@ -46,6 +46,13 @@ export const SIMULATORS: SimulatorMeta[] = [
     description: 'Volumetric flow from area and average speed for incompressible 1-D thinking.',
     sectionIds: ['fluid-mechanics', 'chemical-engineering'],
   },
+  {
+    id: 'ideal-gas',
+    title: 'Ideal gas law (PV = nR\u1d64T)',
+    description:
+      "Pick which variable to solve for, sweep the others, and watch PV = nR\u1d64T balance in real time.",
+    sectionIds: ['thermodynamics', 'chemical-engineering'],
+  },
 ];
 
 export const FORMULA_CARDS: FormulaCard[] = [
@@ -600,7 +607,7 @@ Add your own notes here as you study; keep handbook tables for exact forms.`,
 Cross-check constants and conversions in your official handbook PDF.`,
     formulaCardIds: ['fc-ideal-gas'],
     quizItemIds: ['q-thermo-1'],
-    simulatorIds: [],
+    simulatorIds: ['ideal-gas'],
   },
   {
     id: 'fluids-bernoulli',

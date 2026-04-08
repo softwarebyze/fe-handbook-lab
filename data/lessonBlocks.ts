@@ -216,10 +216,32 @@ export const LESSON_BLOCKS: Record<string, LessonBlock[]> = {
     {
       type: 'math',
       latex: String.raw`PV = n R_u T`,
+      caption: 'Rᵤ = 8.314 kJ/(kmol·K) — universal gas constant.',
     },
     {
       type: 'paragraph',
       text: 'Watch units for n and Rᵤ (kmol vs mol). Ask every time: is this a closed system or a control volume? The same PV=nRT relation can appear in both, but the work/heat terms differ.',
+    },
+    {
+      type: 'bullet',
+      items: [
+        'Fixed n and T → P is inversely proportional to V (Boyle).',
+        'Fixed n and P → V is proportional to T (Charles).',
+        'Doubling moles at constant T and V doubles pressure.',
+      ],
+    },
+    {
+      type: 'callout',
+      variant: 'lab',
+      title: 'Solve for P, V, or T',
+      body: 'Pick the unknown, sweep the inputs, and watch the ideal gas law balance instantly—great for building unit-checking reflexes.',
+      simId: 'ideal-gas',
+    },
+    {
+      type: 'callout',
+      variant: 'exam',
+      title: 'Unit traps',
+      body: 'FE items love mixing kPa vs Pa and kmol vs mol. Always verify your Rᵤ value matches the mole units in the problem statement.',
     },
   ],
 
