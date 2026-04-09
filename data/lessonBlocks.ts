@@ -187,6 +187,50 @@ export const LESSON_BLOCKS: Record<string, LessonBlock[]> = {
     },
   ],
 
+  'heat-fourier-wall': [
+    {
+      type: 'lead',
+      text: 'Fourier’s law in 1-D is the conduction starting point: heat flux is proportional to the temperature gradient and the material’s thermal conductivity.',
+    },
+    {
+      type: 'math',
+      latex: String.raw`q'' = -k \frac{dT}{dx} \qquad \Rightarrow \qquad q'' = k\,\frac{T_1 - T_2}{L}`,
+      caption: 'Steady plane wall with constant k; sign handled by your hot/cold convention.',
+    },
+    {
+      type: 'bullet',
+      items: [
+        'Larger k → more heat flows for the same ΔT (metals vs insulators).',
+        'Thicker wall (larger L) → lower heat flux for the same boundary temperatures.',
+        'Thermal resistance per unit area: R/A = L/k — analogous to electrical R.',
+      ],
+    },
+    {
+      type: 'callout',
+      variant: 'insight',
+      title: 'Electrical analogy',
+      body: 'q″ = ΔT / (L/k) mirrors I = V/R. Stack resistances in series for composite walls, just like resistors in a circuit.',
+    },
+    {
+      type: 'callout',
+      variant: 'lab',
+      title: 'See the gradient',
+      body: 'Sweep k from insulator to metal and watch the temperature profile and heat flux respond. The linear profile only holds for constant k and steady state.',
+      simId: 'heat-conduction',
+    },
+    {
+      type: 'checkpoint',
+      title: 'Self-check',
+      body: 'Doubling wall thickness halves the heat flux (for fixed boundary temps). Doubling k doubles it. Both are linear—say it while you drag the sliders.',
+    },
+    {
+      type: 'callout',
+      variant: 'exam',
+      title: 'Handbook extensions',
+      body: 'The FE handbook includes composite wall, cylindrical, and convective boundary formulas. Use the R-per-area approach from this lab as a mental scaffold before looking up the multi-layer equations.',
+    },
+  ],
+
   'dynamics-work-energy': [
     {
       type: 'lead',
@@ -214,12 +258,44 @@ export const LESSON_BLOCKS: Record<string, LessonBlock[]> = {
       text: 'The ideal gas model is a bookkeeping device: relate P, V, n, and T before you add heat capacities or flow work.',
     },
     {
+      type: 'heading',
+      text: 'The equation of state',
+    },
+    {
       type: 'math',
       latex: String.raw`PV = n R_u T`,
+      caption: 'Rᵤ = 8314 J/(kmol·K). Use consistent units for n.',
     },
     {
       type: 'paragraph',
       text: 'Watch units for n and Rᵤ (kmol vs mol). Ask every time: is this a closed system or a control volume? The same PV=nRT relation can appear in both, but the work/heat terms differ.',
+    },
+    {
+      type: 'bullet',
+      items: [
+        'Fixed n and T → P ∝ 1/V (isothermal compression raises pressure).',
+        'Fixed n and V → P ∝ T (heating in a rigid vessel raises pressure).',
+        'Fixed n and P → V ∝ T (isobaric heating expands the gas).',
+      ],
+    },
+    {
+      type: 'callout',
+      variant: 'insight',
+      title: 'Why "ideal"?',
+      body: 'The model assumes molecules occupy zero volume and exert no intermolecular forces. It works well at low pressures and moderate temperatures—exactly where many FE problems live.',
+    },
+    {
+      type: 'callout',
+      variant: 'lab',
+      title: 'Dial n, T, and V',
+      body: 'See pressure update instantly as you sweep each variable—builds the inverse/proportional intuition before you touch process paths.',
+      simId: 'ideal-gas',
+    },
+    {
+      type: 'callout',
+      variant: 'exam',
+      title: 'Unit traps',
+      body: 'The FE can mix kPa, atm, psi and kmol vs mol. Always confirm Rᵤ units match your n and P. The lab shows both kPa and atm for practice.',
     },
   ],
 
@@ -238,6 +314,73 @@ export const LESSON_BLOCKS: Record<string, LessonBlock[]> = {
       variant: 'exam',
       title: 'Assumption audit',
       body: 'Before applying, ask: steady? inviscid along the streamline? incompressible? no shaft work between points? If any “no,” reach for a richer form from your handbook.',
+    },
+  ],
+
+  'econ-tvm': [
+    {
+      type: 'lead',
+      text: 'Engineering economics on the FE is almost entirely about moving cash through time. Learn five interest factors and you own the section.',
+    },
+    {
+      type: 'heading',
+      text: 'Single-payment compound amount',
+    },
+    {
+      type: 'math',
+      latex: String.raw`F = P\,(1 + i)^n`,
+      caption: 'The (F/P, i, n) factor—foundation of every other factor.',
+    },
+    {
+      type: 'paragraph',
+      text: 'A present sum P, earning interest i per period, grows exponentially. The inverse (P/F) = 1/(1+i)^n discounts a future amount back to today.',
+    },
+    {
+      type: 'heading',
+      text: 'Uniform-series factors',
+    },
+    {
+      type: 'math',
+      latex: String.raw`P = A\,\frac{(1+i)^n - 1}{i\,(1+i)^n}`,
+      caption: '(P/A, i, n) — present worth of n equal payments.',
+    },
+    {
+      type: 'math',
+      latex: String.raw`A = P\,\frac{i\,(1+i)^n}{(1+i)^n - 1}`,
+      caption: '(A/P, i, n) — capital recovery (e.g., mortgage payment).',
+    },
+    {
+      type: 'bullet',
+      items: [
+        '(F/A): sinking fund accumulation—what a series of deposits grows to.',
+        '(P/A): annuity present worth—“what is this stream of payments worth today?”',
+        '(A/P): capital recovery—“what annual payment pays off this loan?”',
+        'As n → ∞ with i > 0, (P/A) → 1/i (perpetuity formula).',
+      ],
+    },
+    {
+      type: 'callout',
+      variant: 'insight',
+      title: 'Factor relationships',
+      body: '(A/P) is the reciprocal of (P/A). (F/P) × (P/A) = (F/A). Memorize the structure; the handbook gives the formulas.',
+    },
+    {
+      type: 'callout',
+      variant: 'lab',
+      title: 'Watch compounding in action',
+      body: 'Slide the interest rate up and watch the gap between principal and future value grow—this is why small rate changes matter so much over long horizons.',
+      simId: 'tvm-compound',
+    },
+    {
+      type: 'checkpoint',
+      title: 'Quick self-check',
+      body: 'At 6% for 12 years, (F/P) ≈ 2.012—your money roughly doubles. The Rule of 72 says 72/6 = 12 years. Try it in the lab.',
+    },
+    {
+      type: 'callout',
+      variant: 'exam',
+      title: 'Handbook pairing',
+      body: 'The FE Reference Handbook (p. 230) lists standard interest factors and their formulas. Use the app for intuition, then confirm factor values from the official tables.',
     },
   ],
 };
