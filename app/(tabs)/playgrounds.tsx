@@ -17,6 +17,10 @@ const ICONS: Record<string, FaName> = {
   'ohms-law': 'flash',
   'continuity-flow': 'arrows-h',
   'normal-stress': 'compress',
+  'heat-conduction': 'fire',
+  'tvm-compound': 'money',
+  'ideal-gas': 'cloud',
+  'stress-strain': 'line-chart',
 };
 
 export default function PlaygroundsScreen() {

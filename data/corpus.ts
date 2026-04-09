@@ -53,6 +53,34 @@ export const SIMULATORS: SimulatorMeta[] = [
       'Pull on a round bar: set force and diameter, watch normal stress rise as cross-section shrinks. Turns red above 250 MPa (mild-steel yield).',
     sectionIds: ['mechanics-materials'],
   },
+  {
+    id: 'heat-conduction',
+    title: '1-D wall conduction',
+    description:
+      'Fourier’s law through a plane wall: q″ = k ΔT / L. Sweep conductivity, thickness, and boundary temperatures.',
+    sectionIds: ['heat-transfer', 'mechanical-engineering'],
+  },
+  {
+    id: 'tvm-compound',
+    title: 'Time value of money',
+    description:
+      'Compound interest F = P(1+i)ⁿ with a live factor table—core engineering economics intuition.',
+    sectionIds: ['economics'],
+  },
+  {
+    id: 'ideal-gas',
+    title: 'Ideal gas law (PV = nRᵤT)',
+    description:
+      'Adjust moles, temperature, and volume to watch pressure respond—intuition for the most-used equation of state.',
+    sectionIds: ['thermodynamics', 'chemical-engineering'],
+  },
+  {
+    id: 'stress-strain',
+    title: 'Stress–strain explorer',
+    description:
+      'Axial stress σ = F/A and Hooke’s law ε = σ/E—adjust force, area, and modulus to see elastic vs yield behavior.',
+    sectionIds: ['mechanics-materials', 'mechanical-engineering'],
+  },
 ];
 
 export const FORMULA_CARDS: FormulaCard[] = [
@@ -235,6 +263,18 @@ export const FORMULA_CARDS: FormulaCard[] = [
     handbookSection: 'Heat Transfer',
   },
   {
+    id: 'fc-thermal-resistance',
+    topicId: 'heat-fourier-wall',
+    title: 'Plane wall thermal resistance',
+    expression: 'R/A = L / k',
+    latex: String.raw`\frac{R}{A} = \frac{L}{k}`,
+    variables: [
+      { symbol: 'L', name: 'wall thickness', units: 'm' },
+      { symbol: 'k', name: 'thermal conductivity', units: 'W/(m·K)' },
+    ],
+    handbookSection: 'Heat Transfer',
+  },
+  {
     id: 'fc-mean-var',
     topicId: 'stats-mean-variance',
     title: 'Sample variance',
@@ -245,6 +285,44 @@ export const FORMULA_CARDS: FormulaCard[] = [
       { symbol: 'n', name: 'count', units: '—' },
     ],
     handbookSection: 'Engineering Probability and Statistics',
+  },
+  {
+    id: 'fc-tvm-fp',
+    topicId: 'econ-tvm',
+    title: 'Single-payment compound amount',
+    expression: 'F = P (1 + i)^n',
+    latex: String.raw`F = P\,(1 + i)^n`,
+    variables: [
+      { symbol: 'P', name: 'present value', units: '$' },
+      { symbol: 'F', name: 'future value', units: '$' },
+      { symbol: 'i', name: 'interest rate per period', units: '—' },
+      { symbol: 'n', name: 'number of periods', units: '—' },
+    ],
+    handbookSection: 'Engineering Economics',
+  },
+  {
+    id: 'fc-tvm-pa',
+    topicId: 'econ-tvm',
+    title: 'Uniform-series present worth',
+    expression: 'P = A [(1+i)^n − 1] / [i(1+i)^n]',
+    latex: String.raw`P = A\,\frac{(1+i)^n - 1}{i\,(1+i)^n}`,
+    variables: [
+      { symbol: 'A', name: 'uniform periodic amount', units: '$' },
+      { symbol: 'P', name: 'present value', units: '$' },
+    ],
+    handbookSection: 'Engineering Economics',
+  },
+  {
+    id: 'fc-tvm-ap',
+    topicId: 'econ-tvm',
+    title: 'Capital recovery factor',
+    expression: 'A = P [i(1+i)^n] / [(1+i)^n − 1]',
+    latex: String.raw`A = P\,\frac{i\,(1+i)^n}{(1+i)^n - 1}`,
+    variables: [
+      { symbol: 'A', name: 'uniform periodic payment', units: '$' },
+      { symbol: 'P', name: 'present value', units: '$' },
+    ],
+    handbookSection: 'Engineering Economics',
   },
 ];
 
@@ -379,6 +457,22 @@ export const QUIZ_ITEMS: QuizItem[] = [
     explanation: 'P ∝ 1/V for isothermal ideal gas.',
   },
   {
+    id: 'q-thermo-2',
+    topicId: 'thermo-ideal-gas',
+    question: 'If temperature T doubles while n and V are held constant, ideal gas P:',
+    choices: ['Halves', 'Doubles', 'Unchanged', 'Quadruples'],
+    correctIndex: 1,
+    explanation: 'P = nRᵤT/V is linear in T for fixed n and V.',
+  },
+  {
+    id: 'q-thermo-3',
+    topicId: 'thermo-ideal-gas',
+    question: 'The universal gas constant Rᵤ has SI units of:',
+    choices: ['J/(kg·K)', 'J/(kmol·K)', 'Pa·m³', 'kW/K'],
+    correctIndex: 1,
+    explanation: 'Rᵤ = 8314 J/(kmol·K) in the NCEES handbook convention.',
+  },
+  {
     id: 'q-fluid-1',
     topicId: 'fluids-bernoulli',
     question: 'Along a streamline with no shaft work, if speed increases, pressure tends to:',
@@ -497,6 +591,76 @@ export const QUIZ_ITEMS: QuizItem[] = [
     choices: ['Lower heat flux', 'Higher heat flux', 'Zero flux', 'Negative temperature'],
     correctIndex: 1,
     explanation: 'Fourier’s law: flux magnitude scales with k for a given |dT/dx|.',
+  },
+  {
+    id: 'q-heat-2',
+    topicId: 'heat-fourier-wall',
+    question: 'Doubling wall thickness L (all else equal) changes steady-state heat flux by a factor of:',
+    choices: ['2', '0.5', '4', '1 (unchanged)'],
+    correctIndex: 1,
+    explanation: 'q″ = kΔT/L — doubling L halves q″.',
+  },
+  {
+    id: 'q-heat-3',
+    topicId: 'heat-fourier-wall',
+    question: 'Thermal resistance per unit area for a plane wall (thickness L, conductivity k) is:',
+    choices: ['k / L', 'L / k', 'k · L', '1 / (k · L)'],
+    correctIndex: 1,
+    explanation: 'R/A = L/k, analogous to electrical resistance.',
+  },
+  {
+    id: 'q-heat-4',
+    topicId: 'heat-fourier-wall',
+    question: 'Steady conduction through a constant-k plane wall has a temperature profile that is:',
+    choices: ['Exponential', 'Linear', 'Parabolic', 'Logarithmic'],
+    correctIndex: 1,
+    explanation: 'With constant k and no generation, d²T/dx² = 0 — a straight line.',
+  },
+  {
+    id: 'q-econ-1',
+    topicId: 'econ-tvm',
+    question:
+      'If $1,000 is invested at 8% annual interest compounded yearly, the value after 10 years is closest to:',
+    choices: ['$1,800', '$2,159', '$2,594', '$1,080'],
+    correctIndex: 1,
+    explanation: 'F = 1000(1.08)^10 ≈ $2,158.92.',
+  },
+  {
+    id: 'q-econ-2',
+    topicId: 'econ-tvm',
+    question: 'Doubling the interest rate while holding n fixed will cause the (F/P) factor to:',
+    choices: ['Double', 'Less than double', 'More than double', 'Stay the same'],
+    correctIndex: 2,
+    explanation: '(1+2i)^n grows faster than 2·(1+i)^n for n > 1 due to compounding.',
+  },
+  {
+    id: 'q-econ-3',
+    topicId: 'econ-tvm',
+    question: 'The (P/F) factor is always:',
+    choices: ['Greater than 1', 'Equal to 1', 'Between 0 and 1 for i > 0', 'Negative'],
+    correctIndex: 2,
+    explanation: '(P/F) = 1/(1+i)^n < 1 when i > 0 and n ≥ 1.',
+  },
+  {
+    id: 'q-econ-4',
+    topicId: 'econ-tvm',
+    question: 'The capital recovery factor (A/P) tells you:',
+    choices: [
+      'How much a future sum is worth today',
+      'The uniform annual payment to repay a present amount',
+      'The future value of a series of payments',
+      'The present value of a gradient series',
+    ],
+    correctIndex: 1,
+    explanation: '(A/P, i, n) converts a lump sum P into n equal periodic payments.',
+  },
+  {
+    id: 'q-econ-5',
+    topicId: 'econ-tvm',
+    question: 'As n → ∞, the (P/A, i, n) factor for i > 0 approaches:',
+    choices: ['0', '∞', '1/i', 'i'],
+    correctIndex: 2,
+    explanation: 'P/A = [(1+i)^n − 1]/[i(1+i)^n] → 1/i as n → ∞ (perpetuity).',
   },
   {
     id: 'q-stat-1',
@@ -622,8 +786,8 @@ Add your own notes here as you study; keep handbook tables for exact forms.`,
 
 Cross-check constants and conversions in your official handbook PDF.`,
     formulaCardIds: ['fc-ideal-gas'],
-    quizItemIds: ['q-thermo-1'],
-    simulatorIds: [],
+    quizItemIds: ['q-thermo-1', 'q-thermo-2', 'q-thermo-3'],
+    simulatorIds: ['ideal-gas'],
   },
   {
     id: 'fluids-bernoulli',
@@ -714,12 +878,12 @@ Rigid-body statics adds ΣM = 0; use handbook frames and notation when problems 
 
 Stress is not force: halving the area doubles stress for the same load. Watch SI vs USCS units; stress often ends up in Pa or ksi after conversions.
 
-Use the playground to pull on a round bar and see how shrinking the diameter rapidly increases stress—area scales with d² so the effect is nonlinear. The display turns red above 250 MPa to flag typical mild-steel yield.
+Use the axial-stress lab to pull on a round bar and see how shrinking the diameter rapidly increases stress—area scales with d² so the effect is nonlinear. The display turns red above 250 MPa to flag typical mild-steel yield. Pair it with the stress–strain explorer for σ = F/A and Hooke’s law ε = σ/E.
 
 Advanced items add shear, bending, and stress transformations—grow into those from this axial base.`,
     formulaCardIds: ['fc-stress-normal'],
     quizItemIds: ['q-stress-1', 'q-stress-2', 'q-stress-3', 'q-stress-4'],
-    simulatorIds: ['normal-stress'],
+    simulatorIds: ['normal-stress', 'stress-strain'],
   },
   {
     id: 'heat-fourier-wall',
@@ -733,9 +897,9 @@ Advanced items add shear, bending, and stress transformations—grow into those 
 The minus sign reminds you that heat flows from hot to cold in the coordinate sense your problem defines.
 
 Plane walls, cylinders, and convection resistances layer on top—use your licensed handbook for the full catalog of thermal resistance networks.`,
-    formulaCardIds: ['fc-heat-flux'],
-    quizItemIds: ['q-heat-1'],
-    simulatorIds: [],
+    formulaCardIds: ['fc-heat-flux', 'fc-thermal-resistance'],
+    quizItemIds: ['q-heat-1', 'q-heat-2', 'q-heat-3', 'q-heat-4'],
+    simulatorIds: ['heat-conduction'],
   },
   {
     id: 'stats-mean-variance',
@@ -849,19 +1013,29 @@ Use your NCEES PDF for the exact conversion blocks.`,
     lesson: `Placeholder: link to first-order thermal lag intuition and handbook correlations.`,
     formulaCardIds: [],
     quizItemIds: [],
-    simulatorIds: [],
+    simulatorIds: ['heat-conduction'],
   },
   {
-    id: 'econ-preview',
+    id: 'econ-tvm',
     sectionId: 'economics',
-    title: 'Engineering economics placeholder',
+    title: 'Time value of money',
     handbookSection: 'Engineering Economics',
     pageHint: 230,
-    learningObjectives: ['Present worth and annual worth patterns'],
-    lesson: `Placeholder: author original factor problems; use handbook interest factors in your PDF.`,
-    formulaCardIds: [],
-    quizItemIds: [],
-    simulatorIds: [],
+    learningObjectives: [
+      'Compute F given P using compound interest',
+      'Use standard interest factors (F/P, P/F, P/A, A/P, F/A)',
+      'Compare alternatives using present-worth analysis',
+    ],
+    lesson: `Engineering economics on the FE exam is almost entirely about moving money through time with compound interest factors.
+
+The foundation is F = P(1+i)^n: a present amount P grows to future value F at rate i over n periods. The inverse (P/F) discounts future cash to the present.
+
+Uniform series factors (P/A, A/P, F/A, A/F) handle equal periodic payments—loan repayment, annuities, and sinking funds. The capital recovery factor (A/P) is what your mortgage uses.
+
+Use the playground to watch the exponential growth curve and see all five major factors update as you sweep rate and periods.`,
+    formulaCardIds: ['fc-tvm-fp', 'fc-tvm-pa', 'fc-tvm-ap'],
+    quizItemIds: ['q-econ-1', 'q-econ-2', 'q-econ-3', 'q-econ-4', 'q-econ-5'],
+    simulatorIds: ['tvm-compound'],
   },
   {
     id: 'chemeng-preview',
