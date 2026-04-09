@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { ContinuityFlowSim } from '@/components/sim/ContinuityFlowSim';
 import { FirstOrderSim } from '@/components/sim/FirstOrderSim';
 import { MomentArmSim } from '@/components/sim/MomentArmSim';
+import { NormalStressSim } from '@/components/sim/NormalStressSim';
 import { OhmLawSim } from '@/components/sim/OhmLawSim';
 import { SecondOrderStepSim } from '@/components/sim/SecondOrderStepSim';
 import { SpringDamperSim } from '@/components/sim/SpringDamperSim';
@@ -26,6 +27,8 @@ export function SimView({ simId }: Props) {
       return <OhmLawSim />;
     case 'continuity-flow':
       return <ContinuityFlowSim />;
+    case 'normal-stress':
+      return <NormalStressSim />;
     default:
       return (
         <View style={styles.fallback}>

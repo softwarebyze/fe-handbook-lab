@@ -28,11 +28,13 @@ export function MomentArmSim() {
 
   const h = 210;
   const pivotX = 72;
-  const pivotY = h - 52;
+  const pivotY = h - 120;
   const maxLen = Math.max(32, boxW - pivotX - 28);
   const len = Math.min(d * 58, maxLen);
-  const fx = pivotX + len;
-  const fy = pivotY;
+  const armEndX = pivotX + len;
+  const armEndY = pivotY;
+  const arrowLen = Math.min(60, F / 300 * 60 + 20);
+  const arrowTipY = armEndY + arrowLen;
 
   const onLayout = (e: LayoutChangeEvent) => {
     const w = e.nativeEvent.layout.width;
@@ -71,23 +73,35 @@ export function MomentArmSim() {
             rx={12}
           />
           <Circle cx={pivotX} cy={pivotY} r={9} fill={colors.textMuted} />
+          {/* Rigid lever arm */}
           <Line
             x1={pivotX}
             y1={pivotY}
-            x2={fx}
-            y2={fy}
-            stroke={arrowColor}
+            x2={armEndX}
+            y2={armEndY}
+            stroke={colors.textMuted}
             strokeWidth={5}
             strokeLinecap="round"
           />
+          {/* Force arrow (perpendicular / downward) */}
+          <Line
+            x1={armEndX}
+            y1={armEndY}
+            x2={armEndX}
+            y2={arrowTipY}
+            stroke={arrowColor}
+            strokeWidth={4}
+            strokeLinecap="round"
+          />
           <Polygon
-            points={`${fx},${fy} ${fx - 14},${fy - 8} ${fx - 14},${fy + 8}`}
+            points={`${armEndX},${arrowTipY + 2} ${armEndX - 8},${arrowTipY - 12} ${armEndX + 8},${arrowTipY - 12}`}
             fill={arrowColor}
           />
-          <SvgText x={pivotX + len / 2 - 8} y={pivotY + 26} fill={colors.text} fontSize="13" fontWeight="600">
+          {/* Labels */}
+          <SvgText x={pivotX + len / 2 - 8} y={pivotY - 12} fill={colors.text} fontSize="13" fontWeight="600">
             d
           </SvgText>
-          <SvgText x={Math.min(fx + 8, boxW - 28)} y={fy - 14} fill={colors.text} fontSize="13" fontWeight="600">
+          <SvgText x={Math.min(armEndX + 10, boxW - 28)} y={armEndY + arrowLen / 2 + 4} fill={colors.text} fontSize="13" fontWeight="600">
             F
           </SvgText>
         </Svg>
