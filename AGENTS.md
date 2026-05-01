@@ -23,6 +23,10 @@ There is no ESLint config or separate lint script in the project; TypeScript str
 - Metro bundler takes ~15 s on first load; the app is ready when `Bundled ... entry.js` appears in the terminal.
 - Port 8081 is the Expo default; pass `--port <N>` to change.
 
+### Expo official skills (Cursor)
+
+This repo vendors [Expo’s official agent skills](https://github.com/expo/skills) as Cursor project rules under `.cursor/rules/expo-skills/` (each skill is `skill.mdc` plus its `references/` and other bundled files). Cursor applies them when relevant based on each rule’s description. To pull updates from upstream instead, use **Cursor Settings → Rules, Commands → Project Rules → Add Rule → Remote Rule (GitHub)** with `https://github.com/expo/skills.git` (see the [expo/skills README](https://github.com/expo/skills#cursor)).
+
 ### Key paths
 
 - `app/` — file-system based routes (expo-router v6)
