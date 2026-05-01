@@ -1,0 +1,57 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+# CodeRabbit is enabled per repository in the CodeRabbit dashboard; this file tunes review behavior.
+# Autofix: use the Finishing Touches checkboxes on the PR or comment `@coderabbitai autofix`.
+# See https://docs.coderabbit.ai/finishing-touches/autofix
+
+language: en-US
+
+reviews:
+  profile: assertive
+  poem: false
+  high_level_summary: true
+  collapse_walkthrough: false
+  review_status: true
+
+  auto_review:
+    enabled: true
+    drafts: false
+    base_branches:
+      - main
+    ignore_title_keywords:
+      - WIP
+      - "[skip review]"
+
+  path_filters:
+    - "!**/node_modules/**"
+    - "!**/.expo/**"
+    - "!**/dist/**"
+    - "!**/web-build/**"
+    - "!**/coverage/**"
+    - "!**/package-lock.json"
+
+  finishing_touches:
+    docstrings:
+      enabled: true
+    unit_tests:
+      enabled: true
+    simplify:
+      enabled: false
+
+  path_instructions:
+    - path: "**/*.{ts,tsx}"
+      instructions: |
+        Expo SDK 54 + React Native 0.81 + React 19. Prefer typed routes (expo-router experiments).
+        Keep static content in data/; no network calls. Match existing component and theme patterns.
+        Prefer @testing-library/react-native for UI tests; pure logic belongs in lib/ with Jest unit tests.
+
+    - path: "app.json"
+      instructions: |
+        Verify runtimeVersion policy stays compatible with EAS Update preview branches.
+        Do not commit secrets; EAS project id belongs in extra.eas only.
+
+    - path: "eas.json"
+      instructions: |
+        Build profiles should stay aligned with internal distribution for preview and store for production.
+
+chat:
+  auto_reply: true
